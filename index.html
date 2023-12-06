@@ -63,9 +63,9 @@
     <script src="./Static/gitalk.min.js"></script>
     <script src="./Static/blueimp-md5@2.19.0.js"></script>
     <script>
-      window.$docsify.plugins = [].concat(function (hook, vm) {
+      window.$docsify.plugins = [].concat((hook, vm) => {
         const dom = Docsify.dom;
-        hook.mounted(function () {
+        hook.mounted(() => {
           const div = dom.create("div");
           div.id = "git-talks-container";
           const main = dom.getNode("#main");
@@ -75,7 +75,7 @@
             "px; margin: 0 auto 20px;padding-bottom: 50px;";
           dom.appendTo(dom.find(".content"), div);
         });
-        hook.doneEach(function () {
+        hook.doneEach(() => {
           let title = decodeURIComponent(
             vm.route.path.split("/").slice(-1).pop()
           );
