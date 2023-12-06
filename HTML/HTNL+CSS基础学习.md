@@ -599,7 +599,7 @@ calc(100% - 70px);
 3. 使用继承：如果没有声明属性值，若可以继承，则继承父元素的值
 4. 使用默认值：对仍然没有值的属性，使用浏览器默认值
 
-![image.png](../public/images/note/html+css/1.png)
+![image.png](./images/html+css/1.png)
 
 ### 盒模型
 
@@ -648,12 +648,12 @@ calc(100% - 70px);
 
 默认情况下，背景覆盖边框盒，可以通过background-clip进行修改
 `background-clip`设置元素的背景（背景图片或颜色）是否延伸到边框、内边距盒子、内容盒子下面
-![image.png](../public/images/note/html+css/2.png)
+![image.png](./images/html+css/2.png)
 
 ##### 溢出处理
 
 `over-flow`，控制内容溢出边框盒后的处理方式
-![image.png](../public/images/note/html+css/3.png)
+![image.png](./images/html+css/3.png)
 
 ##### 断词规则
 

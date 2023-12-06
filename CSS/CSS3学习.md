@@ -397,14 +397,14 @@ transform: ;
           - screen(屏幕)
           - print(页面打印或打印预览模式）
 
-![image.png](../public/images/note/html+css/CSS3/1.png)
+![image.png](./images/CSS3/1.png)
 
          - 媒体特性（Media features): 
             - width(渲染区宽度)
             - device-width(设备宽度)...
             - Media Query是CSS3 对Media Type的增强版，其实可以将Media Query看成Media Type(判断条件)+CSS(符合条件的样式规则) 
 
-![image.png](../public/images/note/html+css/CSS3/2.png)
+![image.png](./images/CSS3/2.png)
 
    -  逻辑运算：
       - 合并多个媒体属性 and
@@ -427,7 +427,7 @@ transform: ;
         Query --> css3 
    -  主要断点： 设备宽度的临界点 
 
-![image.png](../public/images/note/html+css/CSS3/3.png)
+![image.png](./images/CSS3/3.png)
 
       - 大小的区别 ---> 宽度不同   ---> 根据不同宽度展示不同的样式
       - 响应式网页开发主要是在css样式上面进行操作

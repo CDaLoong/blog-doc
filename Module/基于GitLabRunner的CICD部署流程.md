@@ -198,7 +198,7 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
 
     注册时程序会要求你填写相关的信息，这些信息可以从 Gitlab 项目的 管理员 -> CI/CD 页面中找到：
 
-    ![image.png](../public/images/blog/GitLabRunner/1.jpg)
+    ![image.png](./images/GitLabRunner/1.jpg)
 
      ```bash
         Please enter the gitlab-ci coordinator URL:
@@ -241,7 +241,7 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
         exit
      ```
 
-     ![image.png](../public/images/blog/GitLabRunner/2.jpg)
+     ![image.png](./images/GitLabRunner/2.jpg)
     
     这时再使用注册的 Runner 进行项目构建，就发现可以正常执行了。
     

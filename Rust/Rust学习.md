@@ -404,7 +404,7 @@ fn add(i: i32, j: i32) -> i32 {
 ```
 声明函数的关键字 fn ,函数名 add()，参数 i 和 j，参数类型和返回值类型都是 i32。
 
-![image.png](../public/images/note/Rust/1.png)
+![image.png](./images/Rust/1.png)
 
 - 函数名和变量名使用蛇形命名法(snake case)，例如 fn add_two() -> {}
 - 函数的位置可以随便放，Rust 不关心我们在哪里定义了函数，只要有定义即可

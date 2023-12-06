@@ -6,18 +6,18 @@
     * [CSS3学习](CSS/CSS3学习.md)
 
 * JavaScript
-    * [JS基础学习](Module/JS基础学习.md)
-    * [ES6学习](Module/ES6学习.md)
+    * [JS基础学习](JavaScript/JS基础学习.md)
+    * [ES6学习](JavaScript/ES6学习.md)
     * [ECMAScript](JavaScript/ECMAScript.md)
-    * [js代码开发规范](Module/js代码开发规范.md)
-    * [NodeJS学习](Module/NodeJS学习.md)
+    * [js代码开发规范](JavaScript/js代码开发规范.md)
+    * [NodeJS学习](JavaScript/NodeJS学习.md)
 
 * Module
     * [包管理器学习](Module/包管理器学习.md)
     * [git学习](Module/git学习.md)
     * [webpack学习](Module/webpack学习.md)
     * [模块化学习](Module/模块化学习.md)
-    * [基于GitLab Runner的CICD部署流程](Module/基于GitLab Runner的CICD部署流程.md)
+    * [基于GitLabRunner的CICD部署流程](Module/基于GitLabRunner的CICD部署流程.md)
 
 * Vue
     * [vue2学习](Vue/vue2学习.md)

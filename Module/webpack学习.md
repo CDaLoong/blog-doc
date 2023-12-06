@@ -45,7 +45,7 @@
 既然开发时态和运行时态面临的局面有巨大的差异，因此，我们需要有一个工具，这个工具能够让开发者专心的在开发时态写代码，然后利用这个工具将开发时态编写的代码转换为运行时态需要的东西。
 
 这样的工具，叫做**构建工具**
-![image.png](../public/images/note/webpack/1.png)
+![image.png](./images/webpack/1.png)
 这样一来，开发者就可以专注于开发时态的代码结构，而不用担心运行时态遇到的问题了。
 
 ## 常见的构建工具
@@ -106,14 +106,14 @@ webpack
 ### 同模块化标准
 
 如果导出和导入使用的是同一种模块化标准，打包后的效果和之前学习的模块化没有任何差异
-![image.png](../public/images/note/webpack/2.png)
-![image.png](../public/images/note/webpack/3.png)
+![image.png](./images/webpack/2.png)
+![image.png](./images/webpack/3.png)
 
 ### 不同模块化标准
 
 不同的模块化标准，webpack按照如下的方式处理
-![image.png](../public/images/note/webpack/4.png)
-![image.png](../public/images/note/webpack/5.png)
+![image.png](./images/webpack/4.png)
+![image.png](./images/webpack/5.png)
 
 ### 最佳实践
 
@@ -200,7 +200,7 @@ module.exports = "abc";
 ### source map 源码地图
 
 前端发展到现阶段，很多时候都不会直接运行源代码，可能需要对源代码进行合并、压缩、转换等操作，真正运行的是转换后的代码
-![image.png](../public/images/note/webpack/6.png)
+![image.png](./images/webpack/6.png)
 这就给调试带来了困难，因为当运行发生错误的时候，我们更加希望能看到源代码中的错误，而不是转换后代码的错误
 
 > jquery压缩后的代码：[https://code.jquery.com/jquery-3.4.1.min.js](https://code.jquery.com/jquery-3.4.1.min.js)
@@ -211,8 +211,8 @@ module.exports = "abc";
 source map实际上是一个配置，配置中不仅记录了所有源码内容，还记录了和转换后的代码的对应关系
 
 下面是浏览器处理source map的原理
-![image.png](../public/images/note/webpack/7.png)
-![image.png](../public/images/note/webpack/8.png)
+![image.png](./images/webpack/7.png)
+![image.png](./images/webpack/8.png)
 **最佳实践**：
 
 - source map 应在开发环境中使用，作为一种调试手段
@@ -227,14 +227,14 @@ source map实际上是一个配置，配置中不仅记录了所有源码内容�
 ## webpack 编译过程
 
 webpack 的作用是将源代码编译（构建、打包）成最终代码
-![image.png](../public/images/note/webpack/9.png)
+![image.png](./images/webpack/9.png)
 整个过程大致分为三个步骤
 
 1. 初始化
 2. 编译
 3. 输出
 
-![image.png](../public/images/note/webpack/10.png)
+![image.png](./images/webpack/10.png)
 
 ### 初始化
 
@@ -255,7 +255,7 @@ webpack webpack-cli（webpack命令）
 **chunk是webpack在内部构建过程中的一个概念，译为**`**块**`**，它表示通过某个入口找到的所有依赖的统称。**
 
 根据入口模块（默认为`./src/index.js`）创建一个chunk，chunk可以是有多个的，因为入口模块可以有多个
-![image.png](../public/images/note/webpack/11.png)
+![image.png](./images/webpack/11.png)
 每个chunk都有至少两个属性：
 
 - name：默认为main
@@ -263,42 +263,42 @@ webpack webpack-cli（webpack命令）
 
 2. **构建所有依赖模块，递归加载**
 
-![image.png](../public/images/note/webpack/12.png)
+![image.png](./images/webpack/12.png)
 
 > AST在线测试工具：[https://astexplorer.net/](https://astexplorer.net/)
 
 
 简图
-![image.png](../public/images/note/webpack/13.png)
+![image.png](./images/webpack/13.png)
 
 3. **产生chunk assets**
 
 在第二步完成后，chunk中会产生一个模块列表，列表中包含了**模块id**和**模块转换后的代码 **
 
 接下来，webpack会根据配置为chunk生成一个资源列表，即`chunk assets`，资源列表可以理解为是生成到最终文件的文件名和文件内容
-![image.png](../public/images/note/webpack/14.png)
+![image.png](./images/webpack/14.png)
 
 > **chunk hash是根据所有chunk assets的内容生成的一个hash字符串**
 > **hash：一种算法，具体有很多分类，特点是将一个任意长度的字符串转换为一个固定长度的字符串，而且可以保证原始内容不变，产生的hash字符串就不变**
 
 
 简图
-![image.png](../public/images/note/webpack/15.png)
+![image.png](./images/webpack/15.png)
 
 4. **合并chunk assets**
 
 将多个chunk的assets合并到一起，并产生一个总的hash
-![image.png](../public/images/note/webpack/16.png)
+![image.png](./images/webpack/16.png)
 
 ### 输出
 
 此步骤非常简单，webpack将利用node中的fs模块（文件处理模块），根据编译产生的总的assets，生成相应的文件。
-![image.png](../public/images/note/webpack/17.png)
+![image.png](./images/webpack/17.png)
 
 ### 总过程
 
-![image.png](../public/images/note/webpack/18.png)
-![image.png](../public/images/note/webpack/19.png)
+![image.png](./images/webpack/18.png)
+![image.png](./images/webpack/19.png)
 **涉及术语**
 
 1. module：模块，分割的代码单元，webpack中的模块可以是任何内容的文件，不仅限于JS
@@ -313,7 +313,7 @@ webpack webpack-cli（webpack命令）
 
 ## 入口和出口
 
-![image.png](../public/images/note/webpack/20.png)
+![image.png](./images/webpack/20.png)
 
 > node内置模块 - path: [https://nodejs.org/dist/latest-v12.x/docs/api/path.html](https://nodejs.org/dist/latest-v12.x/docs/api/path.html)
 
@@ -354,7 +354,7 @@ __dirname: 所有情况下，都表示当前运行的js文件所在的目录，�
 
 ### 一个页面一个JS
 
-![image.png](../public/images/note/webpack/21.png)
+![image.png](./images/webpack/21.png)
 源码结构
 
 ```
@@ -392,7 +392,7 @@ module.exports = {
 
 ### 一个页面多个JS
 
-![image.png](../public/images/note/webpack/22.png)
+![image.png](./images/webpack/22.png)
 源码结构
 
 ```
@@ -433,7 +433,7 @@ module.exports = {
 ### 单页应用 - 最佳实践
 
 所谓单页应用，是指整个网站（或网站的某一个功能块）只有一个页面，页面中的内容全部靠JS创建和控制。 vue和react都是实现单页应用的利器。
-![image.png](../public/images/note/webpack/23.png)
+![image.png](./images/webpack/23.png)
 源码结构
 
 ```
@@ -465,17 +465,17 @@ module.exports = {
 
 
 webpack loader： loader本质上是一个函数，它的作用是将某个源码字符串转换成另一个源码字符串返回，loader能做的事情有限，更多的事情需要 plugin 来做。
-![image.png](../public/images/note/webpack/24.png)
+![image.png](./images/webpack/24.png)
 loader函数的将在模块语法解析的过程中被调用，以得到最终的源码。
 
 **全流程：**
-![image.png](../public/images/note/webpack/25.png)
+![image.png](./images/webpack/25.png)
 **chunk中解析模块的流程：**
-![image.png](../public/images/note/webpack/26.png)
+![image.png](./images/webpack/26.png)
 **chunk中解析模块的更详细流程：**
-![image.png](../public/images/note/webpack/27.png)
+![image.png](./images/webpack/27.png)
 **处理loaders流程：代码在每一个 loader 函数中进行挨个执行**
-![image.png](../public/images/note/webpack/28.png)
+![image.png](./images/webpack/28.png)
 
 ### loader配置
 
@@ -601,7 +601,7 @@ loader的功能定位是转换代码，而一些其他的操作难以使用loade
 - 当xxxx时，xxxx
 
 **这种类似的功能需要把功能嵌入到webpack的编译流程中，而这种事情的实现是依托于 plugin 的**
-![image.png](../public/images/note/webpack/29.png)
+![image.png](./images/webpack/29.png)
 plugin的**本质**是一个带有apply方法的对象
 
 ```javascript
@@ -638,7 +638,7 @@ module.exports = {
 - **compiler 对象是在初始化阶段构建的，整个 webpack 打包期间只有一个 compiler 对象，后续完成打包工作的是 compiler 对象内部创建的 compilation**
 - **apply方法会在创建好compiler对象后调用，并向方法传入一个compiler对象**
 
-![image.png](../public/images/note/webpack/30.png)
+![image.png](./images/webpack/30.png)
 **compiler对象提供了大量的钩子函数（hooks，可以理解为事件），plugin的开发者可以注册这些钩子函数，参与webpack编译和生成。**
 **你可以在apply方法中使用下面的代码注册钩子函数:**
 
@@ -1422,7 +1422,7 @@ BEM是一套针对css类样式的命名方法。
 BEM全称是：**B**lock **E**lement **M**odifier
 
 一个完整的BEM类名：block__element_modifier，例如：`banner__dot_selected`，可以表示：轮播图中，处于选中状态的小圆点
-![image.png](../public/images/note/webpack/31.png)
+![image.png](./images/webpack/31.png)
 三个部分的具体含义为：
 
 - **Block**：页面中的大区域，表示最顶级的划分，例如：轮播图(`banner`)、布局(`layout`)、文章(`article`)等等
@@ -1483,7 +1483,7 @@ css module 遵循以下思路解决类名冲突问题：
 4. 同JS的变量一样，每个css模块文件中难以出现冲突的类名，冲突的类名往往发生在不同的css模块文件中
 5. 只需要保证构建工具在合并样式代码后不会出现类名冲突即可
 
-![image.png](../public/images/note/webpack/32.png)
+![image.png](./images/webpack/32.png)
 
 ### 实现原理
 
@@ -1492,18 +1492,18 @@ css module 遵循以下思路解决类名冲突问题：
 css 文件需要在使用的地方手动引用：import 到 js 或 @import 到 css
 
 css-loader的实现方式如下：
-![image.png](../public/images/note/webpack/33.png)
+![image.png](./images/webpack/33.png)
 原理极其简单，开启了css module后，css-loader会将样式中的类名进行转换，转换为一个唯一的hash值。
 
 由于hash值是根据模块路径和类名生成的，因此，不同的css模块，哪怕具有相同的类名，转换后的hash值也不一样。
-![image.png](../public/images/note/webpack/34.png)
+![image.png](./images/webpack/34.png)
 
 ### 如何应用样式
 
 css module带来了一个新的问题：源代码的类名和最终生成的类名是不一样的，而开发者只知道自己写的源代码中的类名，并不知道最终的类名是什么，那如何应用类名到元素上呢？
 
 为了解决这个问题，css-loader会导出原类名和最终类名的对应关系，该关系是通过一个对象描述的
-![image.png](../public/images/note/webpack/35.png)
+![image.png](./images/webpack/35.png)
 这样一来，我们就可以在js代码中获取到css模块导出的结果，从而应用类名了
 
 style-loader为了我们更加方便的应用类名，会去除掉其他信息，仅暴露对应关系
@@ -1559,9 +1559,9 @@ style-loader为了我们更加方便的应用类名，会去除掉其他信息�
 其中一种方案，便是预编译器
 
 预编译器的原理很简单，即使用一种更加优雅的方式来书写样式代码，通过一个编译器，将其转换为可被浏览器识别的传统css代码
-![image.png](../public/images/note/webpack/36.png)
+![image.png](./images/webpack/36.png)
 目前，最流行的预编译器有**LESS**和**SASS**，由于它们两者特别相似，因此仅学习一种即可
-![image.png](../public/images/note/webpack/37.png)
+![image.png](./images/webpack/37.png)
 
 > less官网：[http://lesscss.org/](http://lesscss.org/)
 > less中文文档1（非官方）：[http://lesscss.cn/](http://lesscss.cn/)
@@ -1645,13 +1645,13 @@ lessc index.less index.css
 PostCss就是基于这样的理念出现的，借鉴了 webpack，本身就是一个打包工具
 
 PostCss类似于一个编译器，可以将样式源码编译成最终的CSS代码
-![image.png](../public/images/note/webpack/38.png)
+![image.png](./images/webpack/38.png)
 看上去是不是和LESS、SASS一样呢？
 
 但PostCss和LESS、SASS的思路不同，它其实只做一些代码分析之类的事情，将分析的结果交给插件，具体的代码转换操作是插件去完成的。
-![image.png](../public/images/note/webpack/39.png)
+![image.png](./images/webpack/39.png)
 官方的一张图更能说明postcss的处理流程：
-![image.png](../public/images/note/webpack/40.png)
+![image.png](./images/webpack/40.png)
 
 > 这一点有点像webpack，webpack本身仅做依赖分析、抽象语法树分析，其他的操作是靠插件和加载器完成的。
 
@@ -2055,7 +2055,7 @@ body {
 }
 ```
 
-![image.png](../public/images/note/webpack/41.png)
+![image.png](./images/webpack/41.png)
 发生了两处错误：
 
 1. 缩进应该只有两个空格
@@ -2133,15 +2133,15 @@ module.exports = {
 ## babel简介
 
 babel一词来自于希伯来语，直译为巴别塔
-![image.png](../public/images/note/webpack/42.png)
+![image.png](./images/webpack/42.png)
 巴别塔象征的统一的国度、统一的语言
 
 而今天的JS世界缺少一座巴别塔，不同版本的浏览器能识别的ES标准并不相同，就导致了开发者面对不同版本的浏览器要使用不同的语言，和古巴比伦一样，前端开发也面临着这样的困境。
 
 babel的出现，就是用于解决这样的问题，它是一个编译器，可以把不同标准书写的语言，编译为统一的、能被各种浏览器识别的语言
-![image.png](../public/images/note/webpack/43.png)
+![image.png](./images/webpack/43.png)
 由于语言的转换工作灵活多样，babel的做法和postcss、webpack差不多，它本身仅提供一些分析功能，真正的转换需要依托于插件完成
-![image.png](../public/images/note/webpack/44.png)
+![image.png](./images/webpack/44.png)
 
 ## babel的安装
 
@@ -2354,7 +2354,7 @@ console.error("bar");
 # 性能优化概述
 
 本章所讲的性能优化主要体现在三个方面：
-![image.png](../public/images/note/webpack/45.png)
+![image.png](./images/webpack/45.png)
 **构建性能**
 
 这里所说的构建性能，是指在**开发阶段的构建性能**，而不是生产环境的构建性能
@@ -2393,12 +2393,12 @@ console.error("bar");
 
 #### 什么叫做模块解析？
 
-![image.png](../public/images/note/webpack/46.png)
+![image.png](./images/webpack/46.png)
 模块解析包括：抽象语法树分析、依赖分析、模块语法替换
 
 #### 不做模块解析会怎样？
 
-![image.png](../public/images/note/webpack/47.png)
+![image.png](./images/webpack/47.png)
 如果某个模块不做解析，该模块经过loader处理后的代码就是最终代码。
 
 如果没有loader对该模块进行处理，该模块的源码就是最终打包结果的代码。
@@ -2487,7 +2487,7 @@ module.exports = {
 有趣的是，`cache-loader`放到最前面，却能够决定后续的loader是否运行
 
 实际上，loader的运行过程中，还包含一个过程，即`pitch`
-![image.png](../public/images/note/webpack/48.png)
+![image.png](./images/webpack/48.png)
 `cache-loader`还可以实现各自自定义的配置，具体方式见文档
 
 #### 为loader的运行开启多线程
@@ -2513,9 +2513,9 @@ module.exports = {
 
 
 当使用`webpack-dev-server`时，考虑代码改动到效果呈现的过程
-![image.png](../public/images/note/webpack/49.png)
+![image.png](./images/webpack/49.png)
 而使用了热替换后，流程发生了变化
-![image.png](../public/images/note/webpack/50.png)
+![image.png](./images/webpack/50.png)
 
 #### 使用和原理
 
@@ -2554,7 +2554,7 @@ if(module.hot){ // 是否开启了热更新
 但如果运行了`module.hot.accept()`，将改变这一行为
 
 `module.hot.accept()`的作用是让`webpack-dev-server`通过`socket`管道，把服务器更新的内容发送到浏览器
-![image.png](../public/images/note/webpack/51.png)
+![image.png](./images/webpack/51.png)
 然后，将结果交给插件`HotModuleReplacementPlugin`注入的代码执行，插件`HotModuleReplacementPlugin`会根据覆盖原始代码，然后让代码重新执行，浏览器不刷新，只是代码变量指向的对象替换
 
 **所以，热替换发生在代码运行期**
@@ -2579,7 +2579,7 @@ if(module.hot){ // 是否开启了热更新
 
 1. 先单独的打包公共模块
 
-![image.png](../public/images/note/webpack/52.png)
+![image.png](./images/webpack/52.png)
 公共模块会被打包成为动态链接库(dll Dynamic Link Library)，并生成资源清单
 
 2. 根据入口模块进行正常打包
@@ -2735,7 +2735,7 @@ module.exports = {
 > 实际上，webpack在内部是使用`SplitChunksPlugin`进行分包的
 > 过去有一个库`CommonsChunkPlugin`也可以实现分包，不过由于该库某些地方并不完善，到了`webpack4`之后，已被`SplitChunksPlugin`取代
 
-![image.png](../public/images/note/webpack/53.png)
+![image.png](./images/webpack/53.png)
 从分包流程中至少可以看出以下几点：
 
 - 分包策略至关重要，它决定了如何分包
@@ -3250,7 +3250,7 @@ gzip是一种压缩文件的算法
 
 #### B/S结构中的压缩传输
 
-![image.png](../public/images/note/webpack/54.png)
+![image.png](./images/webpack/54.png)
 优点：传输效率可能得到大幅提升
 
 缺点：服务器的压缩需要时间，客户端的解压需要时间
@@ -3258,7 +3258,7 @@ gzip是一种压缩文件的算法
 #### 使用webpack进行预压缩
 
 使用`compression-webpack-plugin`插件对打包结果进行预压缩，可以移除服务器的压缩时间
-![image.png](../public/images/note/webpack/55.png)
+![image.png](./images/webpack/55.png)
 
 ```javascript
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -3285,7 +3285,7 @@ module.exports = {
 ### bundle analyzer  --- bundle 分析
 
 一个插件，会帮你生成一个页面，用来分析出口生成的 bundle.js 的模块依赖关系和各个模块的大小
-![image.png](../public/images/note/webpack/56.png)
+![image.png](./images/webpack/56.png)
 
 ```javascript
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
