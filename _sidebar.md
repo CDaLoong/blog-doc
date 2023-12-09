@@ -11,6 +11,7 @@
     * [ECMAScript](JavaScript/ECMAScript.md)
     * [js代码开发规范](JavaScript/js代码开发规范.md)
     * [NodeJS学习](JavaScript/NodeJS学习.md)
+    * [数组的方法](JavaScript/数组的方法.md)
 
 * Module
     * [包管理器学习](Module/包管理器学习.md)
