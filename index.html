@@ -30,23 +30,24 @@
     <div id="app">Please wait...</div>
     <script>
       window.$docsify = {
-        name: "CDaLoong",
-        repo: "https://github.com/CDaLoong",
-        loadSidebar: true,
-        auto2top: true,
-        themeColor: "#4C98F7",
-        logo: "./CDaLoong-logo.png",
-        // subMaxLevel: 3,
+        name: "CDaLoong", // 文档标题，会显示在侧边栏顶部
+        repo: "https://github.com/CDaLoong", // 配置仓库地址或者 username/repo 的字符串，会在页面右上角渲染一个 GitHub Corner 挂件
+        loadSidebar: true, // 加载自定义侧边栏，设置为 true 后会加载 _sidebar.md 文件，也可以自定义加载的文件名。
+        auto2top: true, // 切换页面后是否自动跳转到页面顶部。
+        themeColor: "#4C98F7", // 替换主题色。利用 CSS3 支持变量的特性，对于老的浏览器有 polyfill 处理。
+        logo: "./CDaLoong-logo.png", // 在侧边栏中出现的网站图标，可以使用CSS来更改大小
         search: {
           paths: "auto",
           placeholder: "Type to search",
           noData: "No Results",
           depth: 1,
         },
+        // 定义路由别名，可以更自由的定义路由规则。 支持正则。
         alias: {
           "/.*/_sidebar.md": "/_sidebar.md",
         },
         plugins: [],
+        // 设置请求资源的请求头。
         requestHeaders: {},
         count: {
           position: "bottom",
