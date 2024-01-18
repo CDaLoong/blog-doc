@@ -7,6 +7,10 @@
   width: 66% !important;
 }
 
+.catalog {
+  max-height: calc(100vh - 188px) !important;
+}
+
 .markdown-body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
