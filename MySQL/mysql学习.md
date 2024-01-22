@@ -407,7 +407,7 @@
      - 开发者不用关心数据库，仅需关心对象
      - 可轻易的完成数据库的移植
      - 无须拼接复杂的sql语句即可完成精确查询
-       ![image.png](./images/MySQL/1.png)
+       ![image.png](./images/mysql学习/1.png)
 -  Node中的ORM
    -  Sequelize
       JS
@@ -699,9 +699,9 @@ Sequelize Docs 中文版：[https://github.com/demopark/sequelize-docs-Zh-CN](ht
    - 客户端要给不同地区的客户友好的显示时间
    - 客户端应该把时间戳或utc时间转换为本地时间显示
 
-     ![image.png](./images/MySQL/2.png)
+     ![image.png](./images/mysql学习/2.png)
      
-     ![image.png](./images/MySQL/3.png)
+     ![image.png](./images/mysql学习/3.png)
 
 ```javascript
   const validate = require("validate.js");
