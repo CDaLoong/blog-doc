@@ -399,6 +399,7 @@ println!("{}",a);
 
 - 操作 UTF-8 字符串
   - 字符
+    
     如果你想要以 Unicode 字符的方式遍历字符串，最好的办法是使用 chars 方法，例如：
     ```rust
     for c in "中国人".chars() {
@@ -410,6 +411,7 @@ println!("{}",a);
     // 人
     ```
   - 字节
+    
     这种方式是返回字符串的底层字节数组表现形式：
     ```rust
     for b in "中国人".bytes() {
@@ -427,6 +429,7 @@ println!("{}",a);
     // 186
     ```
   - 获取子串
+    
     想要准确的从 UTF-8 字符串中获取子串是较为复杂的事情，例如想要从 holla中国人नमस्ते 这种变长的字符串中取出某一个子串，使用标准库你是做不到的。 你需要在 crates.io 上搜索 utf8 来寻找想要的功能。可以考虑尝试下这个库：[utf8_slice](https://crates.io/crates/utf8_slice)。
 
 字符串切片的类型标识是 &str，因此我们可以这样声明一个函数，输入 String 类型，返回它的切片: fn first_word(s: &String) -> &str 。
@@ -1091,6 +1094,7 @@ calculate_length 函数接收 s1 字符串的所有权，然后计算字符串�
 
 ###### 结构体语法
 - 定义结构体
+  
   一个结构体由几部分组成：
     - 通过关键字 struct 定义
     - 一个清晰明确的结构体 名称
@@ -1121,6 +1125,7 @@ calculate_length 函数接收 s1 字符串的所有权，然后计算字符串�
     - 初始化时的字段顺序不需要和结构体定义时的顺序一致
 
 - 访问结构体字段
+  
   通过 . 操作符即可访问结构体实例内部的字段值，也可以修改它们：
   ```rust
     let mut user1 = User {
@@ -1134,6 +1139,7 @@ calculate_length 函数接收 s1 字符串的所有权，然后计算字符串�
   !> 需要注意的是，必须要将结构体实例声明为可变的，才能修改其中的字段，Rust 不支持将某个结构体某个字段标记为可变。
 
 - 简化结构体创建
+
   下面的函数类似一个构建函数，返回了 User 结构体的实例：
   ```rust
   fn build_user(email: String, username: String) -> User {
@@ -1159,6 +1165,7 @@ calculate_length 函数接收 s1 字符串的所有权，然后计算字符串�
   如上所示，当函数参数和结构体字段同名时，可以直接使用缩略的方式进行初始化，跟 TypeScript 中一模一样。
 
 - 结构体更新语法
+  
   在实际场景中，有一种情况很常见：根据已有的结构体实例，创建新的结构体实例，例如根据已有的 user1 实例来构建 user2：
   ```rust
     let user2 = User {
@@ -1465,13 +1472,14 @@ print_suit 函数的参数类型是 PokerSuit，因此我们可以把 heart 和 
 
 目前来说，枚举值还不能带有值，因此先用结构体来实现：
 ```rust
+#[derive(Debug)]
 enum PokerSuit {
     Clubs,
     Spades,
     Diamonds,
     Hearts,
 }
-
+#[derive(Debug)]
 struct PokerCard {
     suit: PokerSuit,
     value: u8
@@ -1486,12 +1494,14 @@ fn main() {
        suit: PokerSuit::Diamonds,
        value: 12,
    };
+   println!("{:?}, {:?}",c1, c2); // PokerCard { suit: Clubs, value: 1 }, PokerCard { suit: Diamonds, value: 12 }
 }
 ```
 这段代码很好的完成了它的使命，通过结构体 PokerCard 来代表一张牌，结构体的 suit 字段表示牌的花色，类型是 PokerSuit 枚举类型，value 字段代表扑克牌的数值。
 
 可以吗？可以！好吗？说实话，不咋地，因为还有简洁得多的方式来实现：
 ```rust
+#[derive(Debug)]
 enum PokerCard {
     Clubs(u8),
     Spades(u8),
@@ -1502,6 +1512,7 @@ enum PokerCard {
 fn main() {
    let c1 = PokerCard::Spades(5);
    let c2 = PokerCard::Diamonds(13);
+   println!("{:?}, {:?}",c1, c2); // Spades(5), Diamonds(13)
 }
 ```
 直接将数据信息关联到枚举成员上，省去近一半的代码，这种实现是不是更优雅？
@@ -1651,7 +1662,7 @@ not satisfied
 
 不再担心会错误的使用一个空值，会让你对代码更加有信心。为了拥有一个可能为空的值，你必须要显式的将其放入对应类型的 Option<T> 中。接着，当使用这个值时，必须明确的处理值为空的情况。只要一个值不是 Option<T> 类型，你就 可以 安全的认定它的值不为空。这是 Rust 的一个经过深思熟虑的设计决策，来限制空值的泛滥以增加 Rust 代码的安全性。
 
-那么当有一个 Option<T> 的值时，如何从 Some 成员中取出 T 的值来使用它呢？Option<T> 枚举拥有大量用于各种情况的方法：你可以查看它的文档。熟悉 Option<T> 的方法将对你的 Rust 之旅非常有用。
+那么当有一个 Option<T> 的值时，如何从 Some 成员中取出 T 的值来使用它呢？Option<T> 枚举拥有大量用于各种情况的方法：你可以查看[它的文档](https://doc.rust-lang.org/std/option/enum.Option.html)。熟悉 Option<T> 的方法将对你的 Rust 之旅非常有用。
 
 总的来说，为了使用 Option<T> 值，需要编写处理每个成员的代码。你想要一些代码只当拥有 Some(T) 值时运行，允许这些代码使用其中的 T。也希望一些代码在值为 None 时运行，这些代码并没有一个可用的 T 值。match 表达式就是这么一个处理枚举的控制流结构：它会根据枚举的成员运行不同的代码，这些代码可以使用匹配到的值中的数据。
 ```rust
@@ -1668,6 +1679,184 @@ let none = plus_one(None);
 ```
 plus_one 通过 match 来处理不同 Option 的情况。
 
+
+##### 数组
+在日常开发中，使用最广的数据结构之一就是数组，在 Rust 中，最常用的数组有两种，第一种是速度很快但是长度固定的 array，第二种是可动态增长的但是有性能损耗的 Vector，一般，我们称 array 为数组，Vector 为动态数组。
+
+这两个数组的关系跟 &str 与 String 的关系很像，前者是长度固定的字符串切片，后者是可动态增长的字符串。其实，在 Rust 中无论是 String 还是 Vector，它们都是 Rust 的高级类型：集合类型。
+
+当前，我们的重点还是放在数组 array 上。数组的具体定义很简单：将多个类型相同的元素依次组合在一起，就是一个数组。结合上面的内容，可以得出数组的三要素：
+- 长度固定
+- 元素必须有相同的类型
+- 依次线性排列
+
+我们这里说的数组是 Rust 的基本类型，是固定长度的，这点与其他编程语言不同，其它编程语言的数组往往是可变长度的，与 Rust 中的动态数组 Vector 类似。
+
+###### 创建数组
+在 Rust 中，数组是这样定义的：
+```rust
+fn main() {
+    let a = [1, 2, 3, 4, 5];
+}
+```
+数组语法跟 JavaScript 很像，也跟大多数编程语言很像。由于它的元素类型大小固定，且长度也是固定，因此数组 array 是存储在栈上，性能也会非常优秀。与此对应，动态数组 Vector 是存储在堆上，因此长度可以动态改变。当你不确定是使用数组还是动态数组时，那就应该使用后者。
+
+举个例子，在需要知道一年中各个月份名称的程序中，你很可能希望使用的是数组而不是动态数组。因为月份是固定的，它总是只包含 12 个元素：
+```rust
+let months = ["January", "February", "March", "April", "May", "June", "July",
+              "August", "September", "October", "November", "December"];
+```
+在一些时候，还需要为数组声明类型，如下所示：
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+```
+这里，数组类型是通过方括号语法声明，i32 是元素类型，分号后面的数字 5 是数组长度，数组类型也从侧面说明了数组的元素类型要统一，长度要固定。
+
+还可以使用下面的语法初始化一个某个值重复出现 N 次的数组：
+```rust
+let a = [3; 5];
+```
+a 数组包含 5 个元素，这些元素的初始化值为 3，聪明的读者已经发现，这种语法跟数组类型的声明语法其实是保持一致的：`[3; 5]` 和 `[类型; 长度]`。
+
+在元素重复的场景，这种写法要简单的多，否则你就得疯狂敲击键盘：`let a = [3, 3, 3, 3, 3];`，不过老板可能很喜欢你的这种疯狂编程的状态。
+
+###### 访问数组元素
+因为数组是连续存放元素的，因此可以通过索引的方式来访问存放其中的元素：
+```rust
+fn main() {
+    let a = [9, 8, 7, 6, 5];
+
+    let first = a[0]; // 获取a数组第一个元素
+    let second = a[1]; // 获取第二个元素
+}
+```
+与许多语言类似，数组的索引下标是从 0 开始的。此处，first 获取到的值是 9，second 是 8。
+
+- 越界访问
+  
+  如果使用超出数组范围的索引访问数组元素，会怎么样？下面是一个接收用户的控制台输入，然后将其作为索引访问数组元素的例子：
+  ```rust
+  use std::io;
+
+  fn main() {
+      let a = [1, 2, 3, 4, 5];
+
+      println!("Please enter an array index.");
+
+      let mut index = String::new();
+      // 读取控制台的输出
+      io::stdin()
+          .read_line(&mut index)
+          .expect("Failed to read line");
+
+      let index: usize = index
+          .trim()
+          .parse()
+          .expect("Index entered was not a number");
+
+      let element = a[index];
+
+      println!(
+          "The value of the element at index {} is: {}",
+          index, element
+      );
+  }
+  ```
+  使用 cargo run 来运行代码，因为数组只有 5 个元素，如果我们试图输入 5 去访问第 6 个元素，则会访问到不存在的数组元素，最终程序会崩溃退出：
+  ```bash
+  Please enter an array index.
+  5
+  thread 'main' panicked at 'index out of bounds: the len is 5 but the index is 5', src/main.rs:19:19
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+  ```
+  这就是数组访问越界，访问了数组中不存在的元素，导致 Rust 运行时错误。程序因此退出并显示错误消息，未执行最后的 println! 语句。
+
+  当你尝试使用索引访问元素时，Rust 将检查你指定的索引是否小于数组长度。如果索引大于或等于数组长度，Rust 会出现 panic。这种检查只能在运行时进行，比如在上面这种情况下，编译器无法在编译期知道用户运行代码时将输入什么值。
+
+  这种就是 Rust 的安全特性之一。在很多系统编程语言中，并不会检查数组越界问题，你会访问到无效的内存地址获取到一个风马牛不相及的值，最终导致在程序逻辑上出现大问题，而且这种问题会非常难以检查。
+
+- 数组元素为非基础类型
+  
+  实际开发中还会碰到一种情况，就是数组元素是非基本类型的。
+  ```rust
+  let array = [String::from("rust is good!"); 8];
+
+  println!("{:#?}", array);
+  ```
+  然后你会惊喜的得到编译错误。
+  ```bash
+  error[E0277]: the trait bound `String: std::marker::Copy` is not satisfied
+  --> src/main.rs:7:18
+    |
+  7 |     let array = [String::from("rust is good!"); 8];
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `std::marker::Copy` is not implemented for `String`
+    |
+    = note: the `Copy` trait is required because this value will be copied for each element of the array
+  ```
+  前面几个例子都是Rust的基本类型，而基本类型在Rust中赋值是以Copy的形式，这时候你就懂了吧，let array=[3;5]底层就是不断的Copy出来的，但很可惜复杂类型都没有深拷贝，只能一个个创建。
+  接着就有小伙伴会这样写。
+  ```rust
+  let array = [String::from("rust is good!"),String::from("rust is good!"),String::from("rust is good!")];
+
+  println!("{:#?}", array);
+  ```
+  作为一个追求极致完美的Rust开发者，怎么能容忍上面这么难看的代码存在！
+
+  正确的写法，应该调用`std::array::from_fn`
+  ```rust
+  let array: [String; 8] = std::array::from_fn(|_i| String::from("rust is good!"));
+
+  println!("{:#?}", array);
+  ```
+
+###### 数组切片
+在之前我们有学习 切片 这个概念，它允许你引用集合中的部分连续片段，而不是整个集合，对于数组也是，数组切片允许我们引用数组的一部分：
+```rust
+let a: [i32; 5] = [1, 2, 3, 4, 5];
+
+let slice: &[i32] = &a[1..3];
+
+assert_eq!(slice, &[2, 3]);
+```
+上面的数组切片 slice 的类型是&[i32]，与之对比，数组的类型是[i32;5]，简单总结下切片的特点：
+- 切片的长度可以与数组不同，并不是固定的，而是取决于你使用时指定的起始和结束位置
+- 创建切片的代价非常小，因为切片只是针对底层数组的一个引用
+- 切片类型[T]拥有不固定的大小，而切片引用类型&[T]则具有固定的大小，因为 Rust 很多时候都需要固定大小数据类型，因此&[T]更有用,&str字符串切片也同理
+
+```rust
+fn main() {
+  // 编译器自动推导出one的类型
+  let one             = [1, 2, 3];
+  // 显式类型标注
+  let two: [u8; 3]    = [1, 2, 3];
+  let blank1          = [0; 3];
+  let blank2: [u8; 3] = [0; 3];
+
+  // arrays是一个二维数组，其中每一个元素都是一个数组，元素类型是[u8; 3]
+  let arrays: [[u8; 3]; 4]  = [one, two, blank1, blank2];
+
+  // 借用arrays的元素用作循环中
+  for a in &arrays {
+    print!("{:?}: ", a);
+    // 将a变成一个迭代器，用于循环
+    // 你也可以直接用for n in a {}来进行循环
+    for n in a.iter() {
+      print!("\t{} + 10 = {}", n, n+10);
+    }
+
+    let mut sum = 0;
+    // 0..a.len,是一个 Rust 的语法糖，其实就等于一个数组，元素是从0,1,2一直增加到到a.len-1
+    for i in 0..a.len() {
+      sum += a[i];
+    }
+    println!("\t({:?} = {})", a, sum);
+  }
+}
+```
+做个总结，数组虽然很简单，但是其实还是存在几个要注意的点：
+- 数组类型容易跟数组切片混淆，[T;n]描述了一个数组的类型，而[T]描述了切片的类型， 因为切片是运行期的数据结构，它的长度无法在编译期得知，因此不能用[T;n]的形式去描述
+- `[u8; 3]`和`[u8; 4]`是不同的类型，数组的长度也是类型的一部分
+- 在实际开发中，使用最多的是数组切片[T]，我们往往通过引用的方式去使用&[T]，因为后者有固定的类型大小
 
 
 ### 所有权和借用
@@ -2078,3 +2267,686 @@ fn no_dangle() -> String {
 - 引用必须总是有效的
 
 
+### 流程控制
+Rust 程序是从上而下顺序执行的，在此过程中，我们可以通过循环、分支等流程控制方式，更好的实现相应的功能。
+
+#### 使用 if 来做分支控制
+if else 无处不在，只要你拥有其它语言的编程经验，就一定会有以下认知：if else 表达式根据条件执行不同的代码分支：
+```rust
+if condition == true {
+    // A...
+} else {
+    // B...
+}
+```
+该代码读作：若 condition 的值为 true，则执行 A 代码，否则执行 B 代码。
+
+先看下面代码：
+```rust
+fn main() {
+    let condition = true;
+    let number = if condition {
+        5
+    } else {
+        6
+    };
+
+    println!("The value of number is: {}", number);
+}
+```
+以上代码有以下几点要注意：
+- if 语句块是表达式，这里我们使用 if 表达式的返回值来给 number 进行赋值：number 的值是 5
+- 用 if 来赋值时，要保证每个分支返回的类型一样(事实上，这种说法不完全准确，见这里)，此处返回的 5 和 6 就是同一个类型，如果返回类型不一致就会报错
+```bash
+error[E0308]: if and else have incompatible types
+ --> src/main.rs:4:18
+  |
+4 |       let number = if condition {
+  |  __________________^
+5 | |         5
+6 | |     } else {
+7 | |         "six"
+8 | |     };
+  | |_____^ expected integer, found &str // 期望整数类型，但却发现&str字符串切片
+  |
+  = note: expected type `{integer}`
+             found type `&str`
+```
+
+#### 使用 else if 来处理多重条件
+可以将 else if 与 if、else 组合在一起实现更复杂的条件分支判断：
+```rust
+fn main() {
+    let n = 6;
+
+    if n % 4 == 0 {
+        println!("number is divisible by 4");
+    } else if n % 3 == 0 {
+        println!("number is divisible by 3");
+    } else if n % 2 == 0 {
+        println!("number is divisible by 2");
+    } else {
+        println!("number is not divisible by 4, 3, or 2");
+    }
+}
+```
+程序执行时，会按照自上至下的顺序执行每一个分支判断，一旦成功，则跳出 if 语句块，最终本程序会匹配执行 `else if n % 3 == 0` 的分支，输出 "number is divisible by 3"。
+
+有一点要注意，就算有多个分支能匹配，也只有第一个匹配的分支会被执行！
+
+如果代码中有大量的 else if 会让代码变得极其丑陋，不过不用担心，match 专门用以解决多分支模式匹配的问题。
+
+#### 循环控制
+循环无处不在，上到数钱，下到数年，你能想象的很多场景都存在循环，因此它也是流程控制中最重要的组成部分之一。
+
+在 Rust 语言中有三种循环方式：for、while 和 loop，其中 for 循环是 Rust 循环王冠上的明珠。
+
+##### for 循环
+for 循环是 Rust 的大杀器：
+```rust
+fn main() {
+    for i in 1..=5 {
+        println!("{}", i);
+    }
+}
+```
+以上代码循环输出一个从 1 到 5 的序列，简单粗暴，核心就在于 for 和 in 的联动，语义表达如下：
+```bash
+for 元素 in 集合 {
+  // 使用元素干一些你懂我不懂的事情
+}
+```
+这个语法跟 JavaScript 还蛮像，应该挺好理解。
+
+注意，使用 for 时我们往往使用集合的引用形式，除非你不想在后面的代码中继续使用该集合（比如我们这里使用了 container 的引用）。如果不使用引用的话，所有权会被转移（move）到 for 语句块中，后面就无法再使用这个集合了：
+```rust
+for item in &container {
+  // ...
+}
+```
+!> 对于实现了 copy 特征的数组(例如 `[i32; 10]` )而言， `for item in arr` 并不会把 arr 的所有权转移，而是直接对其进行了拷贝，因此循环之后仍然可以使用 arr 。
+
+如果想在循环中，修改该元素，可以使用 mut 关键字：
+```rust
+for item in &mut collection {
+  // ...
+}
+```
+
+总结如下：
+
+|   使用方法	                |     等价使用方式         |       所有权            |
+|--------------------------|------------------------|-----------------------|
+|for item in collection |	for item in IntoIterator::into_iter(collection) |	转移所有权 |
+|for item in &collection |	for item in collection.iter() |	不可变借用 |
+|for item in &mut collection |	for item in collection.iter_mut() |	可变借用 |
+
+如果想在循环中获取元素的索引：
+```rust
+fn main() {
+    let a = [4, 3, 2, 1];
+    // `.iter()` 方法把 `a` 数组变成一个迭代器
+    for (i, v) in a.iter().enumerate() {
+        println!("第{}个元素是{}", i + 1, v);
+    }
+}
+```
+如果我们想用 for 循环控制某个过程执行 10 次，但是又不想单独声明一个变量来控制这个流程，该怎么写？
+```rust
+for _ in 0..10 {
+  // ...
+}
+```
+可以用 _ 来替代 i 用于 for 循环中，在 Rust 中 _ 的含义是忽略该值或者类型的意思，如果不使用 _，那么编译器会给你一个 变量未使用的 的警告。
+
+###### 两种循环方式优劣对比
+以下代码，使用了两种循环方式：
+```rust
+// 第一种
+let collection = [1, 2, 3, 4, 5];
+for i in 0..collection.len() {
+  let item = collection[i];
+  // ...
+}
+
+// 第二种
+for item in collection {
+
+}
+```
+第一种方式是循环索引，然后通过索引下标去访问集合，第二种方式是直接循环集合中的元素，优劣如下：
+- 性能：第一种使用方式中 collection[index] 的索引访问，会因为边界检查(Bounds Checking)导致运行时的性能损耗 —— Rust 会检查并确认 index 是否落在集合内，但是第二种直接迭代的方式就不会触发这种检查，因为编译器会在编译时就完成分析并证明这种访问是合法的
+- 安全：第一种方式里对 collection 的索引访问是非连续的，存在一定可能性在两次访问之间，collection 发生了变化，导致脏数据产生。而第二种直接迭代的方式是连续访问，因此不存在这种风险( 由于所有权限制，在访问过程中，数据并不会发生变化)。
+
+由于 for 循环无需任何条件限制，也不需要通过索引来访问，因此是最安全也是最常用的，通过与下面的 while 的对比，我们能看到为什么 for 会更加安全。
+
+##### continue
+使用 continue 可以跳过当前当次的循环，开始下次的循环：
+```rust
+for i in 1..4 {
+    if i == 2 {
+        continue;
+    }
+    println!("{}", i);
+}
+```
+上面代码对 1 到 3 的序列进行迭代，且跳过值为 2 时的循环，输出如下：1 3
+
+##### break
+使用 break 可以直接跳出当前整个循环：
+```rust
+for i in 1..4 {
+    if i == 2 {
+        break;
+    }
+    println!("{}", i);
+}
+```
+上面代码对 1 到 3 的序列进行迭代，在遇到值为 2 时的跳出整个循环，后面的循环不再执行，输出如下：1
+
+##### while 循环
+如果你需要一个条件来循环，当该条件为 true 时，继续循环，条件为 false，跳出循环，那么 while 就非常适用：
+```rust
+fn main() {
+    let mut n = 0;
+
+    while n <= 5  {
+        println!("{}!", n);
+
+        n = n + 1;
+    }
+
+    println!("我出来了！");
+}
+```
+该 while 循环，只有当 n 小于等于 5 时，才执行，否则就立刻跳出循环，因此在上述代码中，它会先从 0 开始，满足条件，进行循环，然后是 1，满足条件，进行循环，最终到 6 的时候，大于 5，不满足条件，跳出 while 循环，执行 我出来了 的打印，然后程序结束：
+```bash
+0!
+1!
+2!
+3!
+4!
+5!
+我出来了！
+```
+可以看出，在这种循环场景下，while 要简洁的多。
+
+###### while vs for
+我们也能用 while 来实现 for 的功能：
+```rust
+fn main() {
+    let a = [10, 20, 30, 40, 50];
+    let mut index = 0;
+
+    while index < 5 {
+        println!("the value is: {}", a[index]);
+
+        index = index + 1;
+    }
+}
+```
+这里，代码对数组中的元素进行计数。它从索引 0 开始，并接着循环直到遇到数组的最后一个索引（这时，index < 5 不再为真）。运行这段代码会打印出数组中的每一个元素：
+```bash
+the value is: 10
+the value is: 20
+the value is: 30
+the value is: 40
+the value is: 50
+```
+数组中的所有五个元素都如期被打印出来。尽管 index 在某一时刻会到达值 5，不过循环在其尝试从数组获取第六个值（会越界）之前就停止了。
+
+但这个过程很容易出错；如果索引长度不正确会导致程序 panic。这也使程序更慢，因为编译器增加了运行时代码来对每次循环的每个元素进行条件检查。
+
+for循环代码如下：
+```rust
+fn main() {
+    let a = [10, 20, 30, 40, 50];
+
+    for element in a.iter() {
+        println!("the value is: {}", element);
+    }
+}
+```
+可以看出，for 并不会使用索引去访问数组，因此更安全也更简洁，同时避免 运行时的边界检查，性能更高。
+
+##### loop 循环
+对于循环而言，loop 循环毋庸置疑，是适用面最高的，它可以适用于所有循环场景（虽然能用，但是在很多场景下， for 和 while 才是最优选择），因为 loop 就是一个简单的无限循环，你可以在内部实现逻辑通过 break 关键字来控制循环何时结束。
+
+使用 loop 循环一定要打起精神，否则你会写出下面的跑满你一个 CPU 核心的疯子代码：
+```rust
+fn main() {
+    loop {
+        println!("again!");
+    }
+}
+```
+该循环会不停的在终端打印输出，直到你使用 Ctrl-C 结束程序：
+```bash
+again!
+again!
+again!
+again!
+^Cagain!
+```
+注意，不要轻易尝试上述代码，如果你电脑配置不行，可能会死机！！！
+
+因此，当使用 loop 时，必不可少的伙伴是 break 关键字，它能让循环在满足某个条件时跳出：
+```rust
+fn main() {
+    let mut counter = 0;
+
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {}", result);
+}
+```
+以上代码当 counter 递增到 10 时，就会通过 break 返回一个 counter * 2 的值，最后赋给 result 并打印出来。
+
+这里有几点值得注意：
+- break 可以单独使用，也可以带一个返回值，有些类似 return
+- loop 是一个表达式，因此可以返回一个值
+
+### 模式匹配
+模式匹配，这个词，对于非函数语言编程来说，真的还蛮少听到，因为它经常出现在函数式编程里，用于为复杂的类型系统提供一个轻松的解构能力。
+
+曾记否？在枚举和流程控制，我们遗留了两个问题，都是关于 match 的，第一个是如何对 Option 枚举进行进一步处理，另外一个是如何用 match 来替代 else if 这种丑陋的多重分支使用方式。那么让我们先一起来揭开 match 的神秘面纱。
+
+#### match 和 if let
+在 Rust 中，模式匹配最常用的就是 match 和 if let。
+
+先来看一个关于 match 的简单例子：
+```rust
+enum Direction {
+    East,
+    West,
+    North,
+    South,
+}
+
+fn main() {
+    let dire = Direction::South;
+    match dire {
+        Direction::East => println!("East"),
+        Direction::North | Direction::South => {
+            println!("South or North");
+        },
+        _ => println!("West"),
+    };
+}
+```
+这里我们想去匹配 dire 对应的枚举类型，因此在 match 中用三个匹配分支来完全覆盖枚举变量 Direction 的所有成员类型，有以下几点值得注意：
+- match 的匹配必须要穷举出所有可能，因此这里用 _ 来代表未列出的所有可能性
+- match 的每一个分支都必须是一个表达式，且所有分支的表达式最终返回值的类型必须相同
+- X | Y，类似逻辑运算符 或，代表该分支可以匹配 X 也可以匹配 Y，只要满足一个即可
+
+其实 match 跟其他语言中的 switch 非常像，_ 类似于 switch 中的 default。
+
+#### match 匹配
+首先来看看 match 的通用形式：
+```rust
+match target {
+    模式1 => 表达式1,
+    模式2 => {
+        语句1;
+        语句2;
+        表达式2
+    },
+    _ => 表达式3
+}
+```
+该形式清晰的说明了何为模式，何为模式匹配：将模式与 target 进行匹配，即为模式匹配，而模式匹配不仅仅局限于 match，后面我们会详细阐述。
+
+match 允许我们将一个值与一系列的模式相比较，并根据相匹配的模式执行对应的代码，下面让我们来一一详解，先看一个例子：
+```rust
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny =>  {
+            println!("Lucky penny!");
+            1
+        },
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
+}
+```
+value_in_cents 函数根据匹配到的硬币，返回对应的美分数值。match 后紧跟着的是一个表达式，跟 if 很像，但是 if 后的表达式必须是一个布尔值，而 match 后的表达式返回值可以是任意类型，只要能跟后面的分支中的模式匹配起来即可，这里的 coin 是枚举 Coin 类型。
+
+接下来是 match 的分支。一个分支有两个部分：一个模式和针对该模式的处理代码。第一个分支的模式是 Coin::Penny，其后的 => 运算符将模式和将要运行的代码分开。这里的代码就仅仅是表达式 1，不同分支之间使用逗号分隔。
+
+当 match 表达式执行时，它将目标值 coin 按顺序依次与每一个分支的模式相比较，如果模式匹配了这个值，那么模式之后的代码将被执行。如果模式并不匹配这个值，将继续执行下一个分支。
+
+每个分支相关联的代码是一个表达式，而表达式的结果值将作为整个 match 表达式的返回值。如果分支有多行代码，那么需要用 {} 包裹，同时最后一行代码需要是一个表达式。
+
+##### 使用 match 表达式赋值
+还有一点很重要，match 本身也是一个表达式，因此可以用它来赋值：
+```rust
+enum IpAddr {
+   Ipv4,
+   Ipv6
+}
+
+fn main() {
+    let ip1 = IpAddr::Ipv6;
+    let ip_str = match ip1 {
+        IpAddr::Ipv4 => "127.0.0.1",
+        _ => "::1",
+    };
+
+    println!("{}", ip_str);
+}
+```
+因为这里匹配到 _ 分支，所以将 "::1" 赋值给了 ip_str。
+
+##### 模式绑定
+模式匹配的另外一个重要功能是从模式中取出绑定的值，例如：
+```rust
+#[derive(Debug)]
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
+
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState), // 25美分硬币
+}
+```
+其中 Coin::Quarter 成员还存放了一个值：美国的某个州（因为在 1999 年到 2008 年间，美国在 25 美分(Quarter)硬币的背后为 50 个州印刷了不同的标记，其它硬币都没有这样的设计）。
+
+接下来，我们希望在模式匹配中，获取到 25 美分硬币上刻印的州的名称：
+```rust
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {:?}!", state);
+            25
+        },
+    }
+}
+```
+上面代码中，在匹配 Coin::Quarter(state) 模式时，我们把它内部存储的值绑定到了 state 变量上，因此 state 变量就是对应的 UsState 枚举类型。
+
+例如有一个印了阿拉斯加州标记的 25 分硬币：Coin::Quarter(UsState::Alaska), 它在匹配时，state 变量将被绑定 UsState::Alaska 的枚举值。
+
+再来看一个更复杂的例子：
+```rust
+enum Action {
+    Say(String),
+    MoveTo(i32, i32),
+    ChangeColorRGB(u16, u16, u16),
+}
+
+fn main() {
+    let actions = [
+        Action::Say("Hello Rust".to_string()),
+        Action::MoveTo(1,2),
+        Action::ChangeColorRGB(255,255,0),
+    ];
+    for action in actions {
+        match action {
+            Action::Say(s) => {
+                println!("{}", s);
+            },
+            Action::MoveTo(x, y) => {
+                println!("point from (0, 0) move to ({}, {})", x, y);
+            },
+            Action::ChangeColorRGB(r, g, _) => {
+                println!("change color into '(r:{}, g:{}, b:0)', 'b' has been ignored",
+                    r, g,
+                );
+            }
+        }
+    }
+}
+```
+运行后输出：
+```bash
+$ cargo run
+   Compiling world_hello v0.1.0 (/Users/cdaloong/Documents/code/test-rust/world_hello)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.65s
+     Running `target/debug/world_hello`
+Hello Rust
+point from (0, 0) move to (1, 2)
+change color into '(r:255, g:255, b:0)', 'b' has been ignored
+```
+
+##### 穷尽匹配
+match 的匹配必须穷尽所有情况，下面来举例说明，例如：
+```rust
+enum Direction {
+    East,
+    West,
+    North,
+    South,
+}
+
+fn main() {
+    let dire = Direction::South;
+    match dire {
+        Direction::East => println!("East"),
+        Direction::North | Direction::South => {
+            println!("South or North");
+        },
+    };
+}
+```
+我们没有处理 Direction::West 的情况，因此会报错：
+```bash
+error[E0004]: non-exhaustive patterns: `West` not covered // 非穷尽匹配，`West` 没有被覆盖
+  --> src/main.rs:10:11
+   |
+1  | / enum Direction {
+2  | |     East,
+3  | |     West,
+   | |     ---- not covered
+4  | |     North,
+5  | |     South,
+6  | | }
+   | |_- `Direction` defined here
+...
+10 |       match dire {
+   |             ^^^^ pattern `West` not covered // 模式 `West` 没有被覆盖
+   |
+   = help: ensure that all possible cases are being handled, possibly by adding wildcards or more match arms
+   = note: the matched value is of type `Direction`
+```
+不禁想感叹，Rust 的编译器真强大，忍不住想爆粗口了，sorry，如果你以后进一步深入使用 Rust 也会像我这样感叹的。Rust 编译器清晰地知道 match 中有哪些分支没有被覆盖, 这种行为能强制我们处理所有的可能性，有效避免传说中价值十亿美金的 null 陷阱。
+
+##### _ 通配符
+当我们不想在匹配时列出所有值的时候，可以使用 Rust 提供的一个特殊模式，例如，u8 可以拥有 0 到 255 的有效的值，但是我们只关心 1、3、5 和 7 这几个值，不想列出其它的 0、2、4、6、8、9 一直到 255 的值。那么, 我们不必一个一个列出所有值, 因为可以使用特殊的模式 _ 替代：
+```rust
+let some_u8_value = 0u8;
+match some_u8_value {
+    1 => println!("one"),
+    3 => println!("three"),
+    5 => println!("five"),
+    7 => println!("seven"),
+    _ => (),
+}
+```
+通过将 _ 其放置于其他分支后，_ 将会匹配所有遗漏的值。() 表示返回单元类型与所有分支返回值的类型相同，所以当匹配到 _ 后，什么也不会发生。
+
+除了_通配符，用一个变量来承载其他情况也是可以的。
+```rust
+#[derive(Debug)]
+enum Direction {
+    East,
+    West,
+    North,
+    South,
+}
+
+fn main() {
+    let dire = Direction::South;
+    match dire {
+        Direction::East => println!("East"),
+        other => println!("other direction: {:?}", other),
+    };
+}
+```
+然而，在某些场景下，我们其实只关心某一个值是否存在，此时 match 就显得过于啰嗦。
+
+#### if let 匹配
+有时会遇到只有一个模式的值需要被处理，其它值直接忽略的场景，如果用 match 来处理就要写成下面这样：
+```rust
+let v = Some(3u8);
+match v {
+    Some(3) => println!("three"),
+    _ => (),
+}
+```
+我们只想要对 Some(3) 模式进行匹配, 不想处理任何其他 Some<u8> 值或 None 值。但是为了满足 match 表达式（穷尽性）的要求，写代码时必须在处理完这唯一的成员后加上 _ => ()，这样会增加不少无用的代码。
+
+俗话说“杀鸡焉用牛刀”，我们完全可以用 if let 的方式来实现：
+```rust
+if let Some(3) = v {
+    println!("three");
+}
+```
+这两种匹配对于新手来说，可能有些难以抉择，但是只要记住一点就好：当你只要匹配一个条件，且忽略其他条件时就用 if let ，否则都用 match。
+
+#### matches!宏
+Rust 标准库中提供了一个非常实用的宏：`matches!`，它可以将一个表达式跟模式进行匹配，然后返回匹配的结果 true or false。
+
+例如，有一个动态数组，里面存有以下枚举：
+```rust
+enum MyEnum {
+    Foo,
+    Bar
+}
+
+fn main() {
+    let v = vec![MyEnum::Foo,MyEnum::Bar,MyEnum::Foo];
+}
+```
+现在如果想对 v 进行过滤，只保留类型是 MyEnum::Foo 的元素，你可能想这么写：
+```rust
+v.iter().filter(|x| x == MyEnum::Foo);
+```
+但是，实际上这行代码会报错，因为你无法将 x 直接跟一个枚举成员进行比较。好在，你可以使用 match 来完成，但是会导致代码更为啰嗦，是否有更简洁的方式？答案是使用 `matches!`：
+```rust
+v.iter().filter(|x| matches!(x, MyEnum::Foo));
+```
+很简单也很简洁，再来看看更多的例子：
+```rust
+let foo = 'f';
+assert!(matches!(foo, 'A'..='Z' | 'a'..='z'));
+
+let bar = Some(4);
+assert!(matches!(bar, Some(x) if x > 2));
+```
+
+#### 变量遮蔽
+无论是 match 还是 if let，这里都是一个新的代码块，而且这里的绑定相当于新变量，如果你使用同名变量，会发生变量遮蔽:
+```rust
+fn main() {
+   let age = Some(30);
+   println!("在匹配前，age是{:?}",age);
+   if let Some(age) = age {
+       println!("匹配出来的age是{}",age);
+   }
+
+   println!("在匹配后，age是{:?}",age);
+}
+```
+cargo run 运行后输出如下：
+```bash
+在匹配前，age是Some(30)
+匹配出来的age是30
+在匹配后，age是Some(30)
+```
+可以看出在 if let 中，= 右边 Some(i32) 类型的 age 被左边 i32 类型的新 age 遮蔽了，该遮蔽一直持续到 if let 语句块的结束。因此第三个 println! 输出的 age 依然是 Some(i32) 类型。
+
+对于 match 类型也是如此:
+```rust
+fn main() {
+   let age = Some(30);
+   println!("在匹配前，age是{:?}",age);
+   match age {
+       Some(age) =>  println!("匹配出来的age是{}",age),
+       _ => ()
+   }
+   println!("在匹配后，age是{:?}",age);
+}
+```
+需要注意的是，match 中的变量遮蔽其实不是那么的容易看出，因此要小心！其实这里最好不要使用同名，避免难以理解，如下。
+```rust
+fn main() {
+   let age = Some(30);
+   println!("在匹配前，age是{:?}", age);
+   match age {
+       Some(x) =>  println!("匹配出来的age是{}", x),
+       _ => ()
+   }
+   println!("在匹配后，age是{:?}", age);
+}
+```
+
+#### 解构 Option
+在学习枚举时，用到过 Option 枚举，它用来解决 Rust 中变量是否有值的问题，定义如下：
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+```
+简单解释就是：一个变量要么有值：Some(T), 要么为空：None。
+
+那么现在的问题就是该如何去使用这个 Option 枚举类型，根据我们上一节的经验，可以通过 match 来实现。
+
+因为 Option，Some，None 都包含在 prelude 中，因此你可以直接通过名称来使用它们，而无需以 Option::Some 这种形式去使用，总之，千万不要因为调用路径变短了，就忘记 Some 和 None 也是 Option 底下的枚举成员！
+
+##### 匹配 Option<T>
+使用 `Option<T>`，是为了从 Some 中取出其内部的 T 值以及处理没有值的情况，为了演示这一点，下面一起来编写一个函数，它获取一个 `Option<i32>`，如果其中含有一个值，将其加一；如果其中没有值，则函数返回 None 值：
+```rust
+fn plus_one(x: Option<i32>) -> Option<i32> {
+    match x {
+        None => None,
+        Some(i) => Some(i + 1),
+    }
+}
+
+let five = Some(5);
+let six = plus_one(five);
+let none = plus_one(None);
+```
+plus_one 接受一个 `Option<i32>` 类型的参数，同时返回一个 `Option<i32>` 类型的值(这种形式的函数在标准库内随处所见)，在该函数的内部处理中，如果传入的是一个 None ，则返回一个 None 且不做任何处理；如果传入的是一个 Some(i32)，则通过模式绑定，把其中的值绑定到变量 i 上，然后返回 i+1 的值，同时用 Some 进行包裹。
+
+为了进一步说明，假设 plus_one 函数接受的参数值 x 是 Some(5)，来看看具体的分支匹配情况：
+- 传入参数 Some(5)
+  ```rust
+  None => None,
+  ```
+  首先是匹配 None 分支，因为值 Some(5) 并不匹配模式 None，所以继续匹配下一个分支。
+  ```rust
+  Some(i) => Some(i + 1),
+  ```
+  Some(5) 与 Some(i) 匹配吗？当然匹配！它们是相同的成员。i 绑定了 Some 中包含的值，因此 i 的值是 5。接着匹配分支的代码被执行，最后将 i 的值加一并返回一个含有值 6 的新 Some。
+- 传入参数 None
+  接着考虑下 plus_one 的第二个调用，这次传入的 x 是 None， 我们进入 match 并与第一个分支相比较。
+  ```rust
+  None => None,
+  ```
+  匹配上了！接着程序继续执行该分支后的代码：返回表达式 None 的值，也就是返回一个 None，因为第一个分支就匹配到了，其他的分支将不再比较。
+
+#### 模式适用场景

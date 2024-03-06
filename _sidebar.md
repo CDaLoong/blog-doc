@@ -44,3 +44,6 @@
 
 * Rust
     * [Rust学习](Rust/Rust学习.md)
+
+* MiniProgram
+    * [支付宝小程序](MiniProgram/支付宝小程序.md)
