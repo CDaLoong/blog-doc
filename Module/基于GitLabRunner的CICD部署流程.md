@@ -93,13 +93,13 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
     gitlab/gitlab-runner:latest
    ```
     我们来解读下这段指令：
-    - docker run: 这是 Docker 命令，用于启动一个新的容器。
-    - -d: 这是一个选项，表示在后台（即以守护进程方式）运行容器。
-    - --name gitlab-runner: 这个选项为容器指定了一个名称，即 "gitlab-runner"，这有助于后续管理容器。
-    - --restart always: 这个选项指定容器应该在退出时总是重新启动，以确保 GitLab Runner 始终运行。
-    - -v /srv/gitlab-runner/config:/etc/gitlab-runner: 这个选项用于挂载卷（Volume），将本地文件系统中的 /srv/gitlab-runner/config 目录与容器内的 /etc/gitlab-runner 目录进行关联。这允许容器访问本地配置文件。
-    - -v /var/run/docker.sock:/var/run/docker.sock: 这个选项也是用于挂载卷，将 Docker 守护进程的 UNIX 套接字（socket）与容器内的 /var/run/docker.sock 进行关联。这是为了使容器能够与宿主机上的 Docker 守护进程进行通信，从而可以在容器内执行 Docker 命令。
-    - gitlab/gitlab-runner:latest: 这是要运行的容器的镜像名称和标签。在这种情况下，它使用了 GitLab Runner 的官方 Docker 镜像，版本标签为 "latest"，表示使用最新版本。
+    - `docker run`: 这是 Docker 命令，用于启动一个新的容器。
+    - `-d`: 这是一个选项，表示在后台（即以守护进程方式）运行容器。
+    - `--name gitlab-runner`: 这个选项为容器指定了一个名称，即 "gitlab-runner"，这有助于后续管理容器。
+    - `--restart always`: 这个选项指定容器应该在退出时总是重新启动，以确保 GitLab Runner 始终运行。
+    - `-v /srv/gitlab-runner/config:/etc/gitlab-runner`: 这个选项用于挂载卷（Volume），将本地文件系统中的 /srv/gitlab-runner/config 目录与容器内的 /etc/gitlab-runner 目录进行关联。这允许容器访问本地配置文件。
+    - `-v /var/run/docker.sock:/var/run/docker.sock`: 这个选项也是用于挂载卷，将 Docker 守护进程的 UNIX 套接字（socket）与容器内的 /var/run/docker.sock 进行关联。这是为了使容器能够与宿主机上的 Docker 守护进程进行通信，从而可以在容器内执行 Docker 命令。
+    - `gitlab/gitlab-runner:latest`: 这是要运行的容器的镜像名称和标签。在这种情况下，它使用了 GitLab Runner 的官方 Docker 镜像，版本标签为 "latest"，表示使用最新版本。
 
     综合起来，这个命令启动一个名为 "gitlab-runner" 的 Docker 容器，该容器运行 GitLab Runner 以用于 CI/CD 工作。容器与本地文件系统上的配置文件和 Docker 守护进程进行关联，以实现必要的功能。容器将在退出时自动重新启动，以确保 GitLab Runner 始终可用。
 
@@ -139,7 +139,7 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
         && chmod 644 ~/.ssh/known_hosts
 
     # 设置环境变量 PATH，将 qshell 工具的路径添加到容器的环境变量中，以便可以直接运行 qshell 命令
-    ENV PATH=$PATH:/home/qshell
+    `ENV PATH=$PATH:/home/qshell`
    ```
    node14 以下环境 Dockerfile 示例，与 14+ 版本的区别仅限于使用的包管理器不同，apt-get 包管理器在较低 node 版本镜像内更新失败：
    ```bash
@@ -191,10 +191,10 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
 6. 注册 Runner
    
    使用以下命令注册 Runner：`docker exec -it gitlab-runner gitlab-ci-multi-runner register`
-     - exec: 这是 Docker 命令的子命令，用于在正在运行的容器内执行命令。
-     - -it: 这是选项，用于指定一个交互式终端（TTY）以及与之关联的标准输入（stdin）和标准输出（stdout）。这使您能够与容器内的命令进行交互。
-     - gitlab-runner: 这是容器的名称或 ID，表示要在哪个容器中执行命令。
-     - gitlab-ci-multi-runner register: 这是要在容器内执行的命令。具体来说，这是 GitLab Runner 工具的 register 子命令，它用于注册 GitLab Runner 到 GitLab CI/CD 服务。
+     - `exec`: 这是 Docker 命令的子命令，用于在正在运行的容器内执行命令。
+     - `-it`: 这是选项，用于指定一个交互式终端（TTY）以及与之关联的标准输入（stdin）和标准输出（stdout）。这使您能够与容器内的命令进行交互。
+     - `gitlab-runner`: 这是容器的名称或 ID，表示要在哪个容器中执行命令。
+     - `gitlab-ci-multi-runner register`: 这是要在容器内执行的命令。具体来说，这是 GitLab Runner 工具的 register 子命令，它用于注册 GitLab Runner 到 GitLab CI/CD 服务。
 
     注册时程序会要求你填写相关的信息，这些信息可以从 Gitlab 项目的 管理员 -> CI/CD 页面中找到：
 
@@ -244,84 +244,103 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
      ![image.png](./images/基于GitLabRunner的CICD部署流程/2.jpg)
     
     这时再使用注册的 Runner 进行项目构建，就发现可以正常执行了。
-    
-### 编写 .gitlab-ci.yml 文件
-
-`.gitlab-ci.yml` 文件是GitLab CI/CD的配置文件，用于定义CI/CD流水线的构建、测试和部署过程。该文件必须位于GitLab项目的根目录，并包含有关如何构建和交付项目的信息。
-编写参考：[https://docs.gitlab.com/ee/ci/yaml/?query=gitlab-ci.yml](https://docs.gitlab.com/ee/ci/yaml/?query=gitlab-ci.yml)
-
-举例：
-```bash
-    # 定义 stages
-    stages:
-    - install
-    - build
-    - deploy
-    - deploy_index
-
-    # 每个job之前运行的命令
-    before_script:
-    - whoami
-    - pwd
-    - node -v
-    - npm -v
-
-    cache:
-    key: ${CI_BUILD_REF_NAME}
-    paths:
-        - node_modules/ # 为node_modules增加缓存
-
-    install:
-    stage: install
-    tags: # 指定使用的 Runner
-        - d-node16
-    script:
-        - echo "======= 开始 安装依赖 ======="
-        - npm install
-    only:
-        - master
-    when: manual
-    build:
-    stage: build
-    tags:
-        - d-node16
-    script:
-        - echo "======= 开始 构建 ======="
-        - npm run build:p
-        - echo "======= 结束 构建 ======="
-    artifacts:
-        expire_in: 1 week # 生成文件保存周期
-        name: '${CI_JOB_NAME}_${CI_COMMIT_REF_NAME}'
-        paths:
-        - dist # 编译后生成的文件夹名
-    only:
-        - master
-
-    deploy:
-    stage: deploy
-    tags:
-        - d-node16
-    script:
-        - echo "======= 开始 部署 ======="
-        - npm run qiniu
-        - npm run deploy
-        - echo "======= 完成 部署 ======="
-    only:
-        - master
-
-    deploy_index:
-    stage: deploy_index
-    script:
-        - echo "======= 开始 部署 index.html ======="
-        - npm run deploy_index
-        - echo "======= 完成 部署 index.html ======="
-    when: manual
-    only:
-        - master
-```
 
 ### 编写部署时需要的 shell 脚本
-参考：
+
+#### ips.txt 和 ips-t.txt 文件参考
+
+注意文件最后一行要保留一行空行
+
+```bash
+web0   1.1.1.1
+web1  1.1.1.1
+# 空行
+```
+
+#### 开发环境部署脚本参考
+```bash
+#!/bin/bash -
+
+home=$(
+  cd $(dirname $0)
+  pwd
+)
+# cd $home
+
+## 项目部署路径
+root_path=$(cat ./vite.config.js | grep "testRootPath:" | cut -d "'" -f2 | cut -d "'" -f1)
+if [[ "__ONLINE_ROOT_PATH__" == "${root_path}" || "" == "${root_path}" ]]; then
+  echo " ************************ "
+  echo " 请配置 vite.config.ts 中的 testRootPath "
+  echo " ************************ "
+  exit
+fi
+## 遍历文件
+function walk(){
+    if [ -f $1 ]; then
+        dep $1
+        return
+    fi
+    mkdir_dir ${1##*dist/}
+    for item in `ls $1`
+    do
+        local file=$1"/"$item
+        if [ -d $file ]
+        then
+            walk $file
+        else
+            ## 遍历时不同步入口index.html
+            if [ "$file" == "dist/index.html" ];
+            then
+                continue
+            fi
+            dep ${file}
+        fi
+    done
+}
+
+## 创建目录
+function mkdir_dir(){
+    root_dir=${root_path}/$1
+    arr=(${root_dir//\// }) ##表示'/'替换为' '空格
+    local dir=""
+    for item in ${arr[@]}
+    do
+    if [ "$item" == "dist" ];
+    then
+        continue
+    fi
+        dir=$dir/$item
+        while read path ip ;
+        do
+            # echo "ssh root@$ip '[ -d ${dir} ] && echo ok || mkdir -p ${dir}'"
+            ssh root@$ip "[ -d ${dir} ] && echo ok || mkdir -p ${dir}" < /dev/null
+        done < ./scripts/deploy/ips-t.txt
+    done
+}
+
+## 同步文件
+function dep(){
+    file=$1
+    while read path ip ;
+    do
+        echo "scp -p -r  $file   root@$ip:$root_path/${file##*dist/}"
+        scp -p -r  $file   root@${ip}:${root_path}/${file##*dist/} < /dev/null
+    done < ./scripts/deploy/ips-t.txt
+}
+
+echo "=================开始发布================"
+
+dir=${1%*/}
+walk $dir
+## 最后同步入口文件
+dep ${dir}/index.html
+
+echo "=================完成发布================"
+```
+需要部署的服务器 ip 保存在同目录下的 `ips.txt` 文件中，执行指令 `bash ./scripts/deploy/deploy-t.sh dist`，需要将 `dist` 目录作为参数传递给脚本。
+
+#### 生产环境部署脚本参考
 ```bash
     #!/bin/bash -
     home=$(
@@ -330,8 +349,8 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
     )
     # cd $home
 
-    ## 项目部署路径
-    root_path=$(cat ./vite.config.js | grep "onlineRootPath:" | cut -d "'" -f2 | cut -d "'" -f1)
+    # 项目部署路径
+    root_path=$(cat ./vite.config.js | grep "onlineRootPath:" | cut -d "'" -f2 | cut -d "'" -f1) # 注意这里被 "" 包裹的引号是单引号还是双引号要和 onlineRootPath 的 value 对应
     if [[ "__ONLINE_ROOT_PATH__" == "${root_path}" || "" == "${root_path}" ]]; then
     echo " ************************ "
     echo " 请配置 vite.config.js 中的 onlineRootPath "
@@ -340,47 +359,57 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
     fi
     echo ${root_path}
     ## 遍历文件
-    function walk() {
-    if [ -f $1 ]; then
-        dep $1
-        return
-    fi
-    mkdir_dir ${1##*dist/}
-    for item in $(ls $1); do
-        local file=$1"/"$item
-        if [ -d $file ]; then
-        walk $file
-        else
-        ## 遍历时不同步入口index.html
-        if [ "$file" == "dist/index.html" ]; then
-            continue
+    function walk(){
+        if [ -f $1 ]; then
+            dep $1
+            return
         fi
-        dep ${file}
-        fi
-    done
+        mkdir_dir ${1##*dist/}
+        for item in `ls $1`
+        do
+            local file=$1"/"$item
+            if [ -d $file ]
+            then
+                walk $file
+            else
+                ## 遍历时不同步入口index.html，入口文件在最后同步
+                if [ "$file" == "dist/index.html" ];
+                then
+                    continue
+                fi
+                dep ${file}
+            fi
+        done
     }
 
     ## 创建目录
-    function mkdir_dir() {
-    root_dir=${root_path}/$1
-    arr=(${root_dir//\// }) ##表示'/'替换为' '空格
-    local dir=""
-    for item in ${arr[@]}; do
-        dir=$dir/$item
-        while read path ip; do
-        echo "ssh root@$ip '[ -d ${dir} ] && echo ok || mkdir -p ${dir}'"
-        ssh root@$ip "[ -d ${dir} ] && echo ok || mkdir -p ${dir}" </dev/null
-        done <./scripts/deploy/ips.txt
-    done
+    function mkdir_dir(){
+        root_dir=${root_path}/$1
+        arr=(${root_dir//\// }) ##表示'/'替换为' '空格
+        local dir=""
+        for item in ${arr[@]}
+        do
+        if [ "$item" == "dist" ];
+        then
+            continue
+        fi
+            dir=$dir/$item
+            while read path ip ;
+            do
+                # echo "ssh root@$ip '[ -d ${dir} ] && echo ok || mkdir -p ${dir}'"
+                ssh root@$ip "[ -d ${dir} ] && echo ok || mkdir -p ${dir}" < /dev/null
+            done < ./scripts/deploy/ips.txt
+        done
     }
 
     ## 同步文件
-    function dep() {
-    file=$1
-    while read path ip; do
-        echo "scp -p -r  $file   root@$ip:$root_path/${file##*dist/}"
-        scp -p -r $file root@${ip}:${root_path}/${file##*dist/} </dev/null
-    done <./scripts/deploy/ips.txt
+    function dep(){
+        file=$1
+        while read path ip ;
+        do
+            echo "scp -p -r  $file   root@$ip:$root_path/${file##*dist/}"
+            scp -p -r  $file   root@${ip}:${root_path}/${file##*dist/} < /dev/null
+        done < ./scripts/deploy/ips.txt
     }
 
     echo "=================开始发布================"
@@ -394,7 +423,7 @@ GitLab CI/CD 是 GitLab 提供的持续集成和持续部署工具，它集成�
 ```
 需要部署的服务器 ip 保存在同目录下的 `ips.txt` 文件中，执行指令 `bash ./scripts/deploy/deploy.sh dist`，需要将 `dist` 目录作为参数传递给脚本。
 
-同步七牛云CDN脚本参考：
+#### 同步七牛云CDN脚本参考
 ```bash
 #! /bin/bash
 
@@ -430,3 +459,121 @@ echo "count ===== $count"
 echo "============ 完成同步CDN ==========="
 ```
 执行指令 `bash ./scripts/cdn/qiniu.sh dist`，同样需要将 `dist` 目录作为参数传递给脚本。
+
+### 编写 package.json 的 "scripts" 配置项
+以 vite 脚手架构建的 vue3 项目举例
+```bash
+"build:t": "vite build --mode development", # 开发环境打包
+"build:p": "vite build --mode production", # 生产环境打包
+"qiniu": "bash ./scripts/cdn/qiniu.sh dist", # 生产环境部署时执行七牛云 CDN 上传脚本
+"deploy": "bash ./scripts/deploy/deploy.sh dist", # 生产环境部署时执行的生产环境部署脚本
+"deploy:t": "bash ./scripts/deploy/deploy-t.sh dist", # 开发环境部署时执行的开发环境部署脚本，使用两个脚本文件而不是一个脚本文件内进行判断是为了之后更好的扩展
+"deploy_index": "bash ./scripts/deploy/deploy.sh dist/index.html", # 生产环境快速回滚，该逻辑的实现基于 dist 内文件上传到七牛CDN的逻辑，根据CDN链接获取对应的文件，只需重新部署 index.html 文件即可
+```
+
+### 编写 .gitlab-ci.yml 文件
+
+`.gitlab-ci.yml` 文件是GitLab CI/CD的配置文件，用于定义CI/CD流水线的构建、测试和部署过程。该文件必须位于GitLab项目的根目录，并包含有关如何构建和交付项目的信息。
+编写参考：[https://docs.gitlab.com/ee/ci/yaml/?query=gitlab-ci.yml](https://docs.gitlab.com/ee/ci/yaml/?query=gitlab-ci.yml)
+
+举例，该配置将master分支代码打包部署到生产环境，将release开头分支代码打包部署到测试地址，具体部署到哪里由根目录 *.config.* 文件内配置的路径决定(onlineRootPath、testRootPath)：
+```bash
+# 定义 stages
+stages:
+    - install
+    - build
+    - deploy
+    - deploy_index
+
+# 每个job之前运行的命令
+before_script:
+    - whoami
+    - pwd
+    - node -v
+    - npm -v
+
+# 在不同分支可以使用共同的缓存需要关闭受保护分支缓存：在 GitLab中找到项目，左下角设置 - CI/CD - 流水线通用设置 - 清除"为受保护的分支使用单独的缓存"复选框 - 保存修改
+cache:
+    key: ${CI_PROJECT_NAME} # 使用项目名称做为缓存名称，方便在不同分支使用该缓存
+    paths:
+        - node_modules/ # 为node_modules增加缓存
+
+install:
+    stage: install
+    # 使用的 runner，根据项目所需不同 node 版本去选择，目前可选 node16 node14 node12 node10
+    # 使用 node16 和 node14 需开启共享Runner：在 GitLab中找到项目，左下角设置 - CI/CD - Runner - 打开为该项目启用共享Runner
+    # 不配置 tags 随机使用 node12 node10
+    tags:
+        - d-node16
+    script:
+        - echo "======= 开始 安装依赖 ======="
+        - echo "${CI_PROJECT_NAME} ${CI_COMMIT_BRANCH}" # 打印核对下项目名称和分支名称
+        - npm install
+        - echo "======= 结束 安装依赖 ======="
+    only: # 只有在 master 分支和 release 开头分支才会展示可执行
+        - master
+        - /^release/
+    when: manual # 手动执行
+
+build:
+    stage: build
+    tags:
+        - d-node16
+    script:
+        - echo "======= 开始 构建 ======="
+        - | # 根据不同分支执行不同逻辑
+        if [[ "${CI_COMMIT_BRANCH}" == "master" ]]; then
+            npm run build:p
+        fi
+        if [[ "${CI_COMMIT_BRANCH}" =~ ^release ]]; then
+            npm run build:t
+        fi
+        - echo "======= 结束 构建 ======="
+    artifacts:
+        expire_in: 1 week # 生成文件保存周期
+        name: '${CI_JOB_NAME}_${CI_COMMIT_REF_NAME}'
+        paths:
+        - dist # 编译后生成的文件夹名
+    only:
+        - master
+        - /^release/
+
+deploy:
+    stage: deploy
+    tags:
+        - d-node16
+    script:
+        - echo "======= 开始 部署 ======="
+        - |
+        if [[ "${CI_COMMIT_BRANCH}" == "master" ]]; then
+            npm run qiniu
+            npm run deploy
+        fi
+        if [[ "${CI_COMMIT_BRANCH}" =~ ^release ]]; then
+            npm run deploy:t
+        fi
+        - echo "======= 完成 部署 ======="
+    only:
+        - master
+        - /^release/
+
+deploy_index:
+    stage: deploy_index
+    script:
+        - echo "======= 开始 部署 index.html ======="
+        - npm run deploy_index
+        - echo "======= 完成 部署 index.html ======="
+    when: manual
+    only:
+        - master
+```
+
+### 更新 Runner 使用的镜像
+
+我们在需要新增部署的服务器时需要更新镜像，以便在镜像生成的容器内有访问新服务器的权限，这时候我们需要：
+
+1. 删除或重命名要修改的镜像
+2. 更新对应的 Dockerfile 文件
+3. 镜像名称保持不变并重新构建镜像
+
+在之后对应 Runner 执行时就会根据我们新生成的镜像文件创建临时容器了。
