@@ -13,6 +13,8 @@
     * [NodeJS学习](JavaScript/NodeJS学习.md "NodeJS学习")
     * [数组的方法](JavaScript/数组的方法.md "数组的方法")
     * [Math方法](JavaScript/Math方法.md "Math方法")
+    * [箭头函数](JavaScript/箭头函数.md "箭头函数")
+    * [JavaScript的严格模式](JavaScript/JavaScript的严格模式.md "JavaScript的严格模式")
 
 * Module
     * [包管理器学习](Module/包管理器学习.md "包管理器学习")
