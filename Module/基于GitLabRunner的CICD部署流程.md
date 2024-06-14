@@ -468,7 +468,7 @@ echo "============ 完成同步CDN ==========="
 "qiniu": "bash ./scripts/cdn/qiniu.sh dist", # 生产环境部署时执行七牛云 CDN 上传脚本
 "deploy": "bash ./scripts/deploy/deploy.sh dist", # 生产环境部署时执行的生产环境部署脚本
 "deploy:t": "bash ./scripts/deploy/deploy-t.sh dist", # 开发环境部署时执行的开发环境部署脚本，使用两个脚本文件而不是一个脚本文件内进行判断是为了之后更好的扩展
-"deploy_index": "bash ./scripts/deploy/deploy.sh dist/index.html", # 生产环境快速回滚，该逻辑的实现基于 dist 内文件上传到七牛CDN的逻辑，根据CDN链接获取对应的文件，只需重新部署 index.html 文件即可
+"deploy_index": "bash ./scripts/deploy/deploy.sh dist/index.html", # 生产环境快速回滚，该逻辑的实现基于 dist 内文件上传到七牛CDN和后台后都会保留的逻辑，根据CDN链接或引用文件名获取对应的文件，只需重新部署 index.html 文件即可
 ```
 
 ### 编写 .gitlab-ci.yml 文件

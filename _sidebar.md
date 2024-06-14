@@ -32,6 +32,7 @@
 
 * Browser
     * [WebAssembly](Browser/WebAssembly.md "WebAssembly")
+    * [浏览器的事件循环](Browser/浏览器的事件循环.md "浏览器的事件循环")
 
 * Algorithm
     * [算法学习](Algorithm/算法学习.md "算法学习")
