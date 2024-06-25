@@ -15,6 +15,7 @@
     * [Math方法](JavaScript/Math方法.md "Math方法")
     * [箭头函数](JavaScript/箭头函数.md "箭头函数")
     * [JavaScript的严格模式](JavaScript/JavaScript的严格模式.md "JavaScript的严格模式")
+    * [Proxy](JavaScript/Proxy.md "Proxy")
 
 * Module
     * [包管理器学习](Module/包管理器学习.md "包管理器学习")
@@ -23,9 +24,14 @@
     * [模块化学习](Module/模块化学习.md "模块化学习")
     * [基于GitLabRunner的CICD部署流程](Module/基于GitLabRunner的CICD部署流程.md "基于GitLabRunner的CICD部署流程")
     * [工程化工具链](Module/工程化工具链.md "工程化工具链")
+    * [vite脚手架学习](Module/vite脚手架学习.md "vite脚手架学习")
+    * [不同框架特性](Module/不同框架特性.md "不同框架特性")
 
 * Vue
     * [vue2学习](Vue/vue2学习.md "vue2学习")
+    * [vue须知须会](Vue/vue须知须会.md "vue须知须会")
+    * [keep-alive](Vue/keep-alive.md "keep-alive")
+    * [VNode(虚拟dom)](Vue/VNode(虚拟dom).md "VNode(虚拟dom)")
 
 * React
     * [react学习](React/react学习.md "react学习")
