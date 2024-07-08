@@ -3,7 +3,7 @@
 
 ## 生命周期
 
-Vue.js 是一个[渐进式 JavaScript 框架](../Module/不同框架特性.md)，用于构建用户界面。Vue 的生命周期提供了8个钩子函数在特定阶段运行代码。
+Vue.js 是一个[渐进式 JavaScript 框架](/Module/不同框架特性.md)，用于构建用户界面。Vue 的生命周期提供了8个钩子函数在特定阶段运行代码。
 
 1. beforeCreate：实例初始化之后，数据观测和事件配置之前被调用。在这个阶段，还无法访问 data 和 methods。
 2. created：实例创建完成后被调用。在这个阶段，实例已完成数据观测、属性和方法的初始化，但尚未挂载 DOM。
@@ -25,7 +25,7 @@ Vue.js 是一个[渐进式 JavaScript 框架](../Module/不同框架特性.md)�
 
 ### `<keep-alive>` 组件的生命周期
 
-[`<keep-alive>` 是 Vue 内置的一个抽象组件](../Vue/keep-alive.md)，用于缓存状态在组件切换时保持不变。当组件被` <keep-alive>` 包裹时，它会有两个额外的生命周期钩子：
+[`<keep-alive>` 是 Vue 内置的一个抽象组件](/Vue/keep-alive.md)，用于缓存状态在组件切换时保持不变。当组件被` <keep-alive>` 包裹时，它会有两个额外的生命周期钩子：
 
 - activated：当被 `<keep-alive>` 缓存的组件激活时调用。这是组件从非活动状态变为活动状态时的钩子。适用于需要在组件显示时执行某些操作的场景。
 - deactivated：当被 `<keep-alive>` 缓存的组件停用时调用。这是组件从活动状态变为非活动状态时的钩子。适用于需要在组件隐藏时执行某些操作的场景。
@@ -56,7 +56,7 @@ Vue 2 的响应式系统基于 Object.defineProperty，通过劫持对象属性�
 
 ### Vue 3 的响应式系统
 
-Vue 3 的响应式系统基于 ES6 的 [Proxy](../JavaScript/Proxy.md) 对象，提供了更强大和灵活的能力。
+Vue 3 的响应式系统基于 ES6 的 [Proxy](/JavaScript/Proxy.md) 对象，提供了更强大和灵活的能力。
 
 1. Proxy：Vue 3 使用 Proxy 来劫持对象，对对象的任何操作都会触发代理的回调函数，从而实现对属性的完全监控。
 2. Reflect：配合 Proxy 使用，帮助实现默认行为。

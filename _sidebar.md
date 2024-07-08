@@ -18,6 +18,7 @@
     * [Proxy](JavaScript/Proxy.md "Proxy")
 
 * Module
+    * [前端测试](Module/前端测试.md "前端测试")
     * [包管理器学习](Module/包管理器学习.md "包管理器学习")
     * [git学习](Module/git学习.md "git学习")
     * [webpack学习](Module/webpack学习.md "webpack学习")
