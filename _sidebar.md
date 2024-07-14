@@ -48,6 +48,7 @@
     * [网络学习](Computer/网络学习.md "网络学习")
 
 * Nest
+    * [NodeJS学习](Nest/NodeJS学习.md "NodeJS学习")
     * [Nest学习](Nest/Nest学习.md "Nest学习")
     * [5种HTTP数据传输方式](Nest/5种HTTP数据传输方式.md "5种HTTP数据传输方式")
 
