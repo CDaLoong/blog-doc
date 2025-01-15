@@ -20,9 +20,9 @@
 
 ## Node的全局对象
 
-1. setTimeout       计时执行 
-2. setlnterval      每多少时执行 
-3. setlmmediate     类似于setTimeout0，立即执行 
+1. setTimeout       计时执行 与window对象内的setTimeout一致，但可以设置0，即setTimeout0，立即执行，但可能比setTimeout慢 1ms
+2. setlnterval      每多少时执行，与window对象内的setInterval一致，但可以设置0，即setInterval0，立即执行，但可能比setInterval慢 1ms
+3. setlmmediate     类似于setTimeout0，立即执行，与setTimeout0的差异在于生命周期内
 4. console          控制台 
 5. __dirname        用于获取当前目录 (并非global属性) 
 6. __filename       用于获取当前模块文件的文件路径 (并非global属性) 

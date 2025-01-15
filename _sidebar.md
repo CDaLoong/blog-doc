@@ -16,6 +16,9 @@
     * [箭头函数](JavaScript/箭头函数.md "箭头函数")
     * [JavaScript的严格模式](JavaScript/JavaScript的严格模式.md "JavaScript的严格模式")
     * [Proxy](JavaScript/Proxy.md "Proxy")
+    * [Class](JavaScript/Class.md "Class")
+    * [TypeScript学习.md](JavaScript/TypeScript学习.md "TypeScript学习")
+    * [js进阶](JavaScript/js进阶.md "js进阶")
 
 * Module
     * [前端测试](Module/前端测试.md "前端测试")
