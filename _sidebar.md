@@ -49,7 +49,7 @@
 
 * Computer
     * [网络学习](Computer/网络学习.md "网络学习")
-    * [常用工具命令记录](Computer/常用工具命令记录.md "常用工具命令记录")
+    * [不常用工具命令记录](Computer/不常用工具命令记录.md "不常用工具命令记录")
 
 * Nest
     * [NodeJS学习](Nest/NodeJS学习.md "NodeJS学习")
