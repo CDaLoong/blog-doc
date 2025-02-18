@@ -19,6 +19,7 @@
     * [Class](JavaScript/Class.md "Class")
     * [TypeScript学习.md](JavaScript/TypeScript学习.md "TypeScript学习")
     * [js进阶](JavaScript/js进阶.md "js进阶")
+    * [前端常用的数据结构](JavaScript/前端常用的数据结构.md "前端常用的数据结构")
 
 * Module
     * [前端测试](Module/前端测试.md "前端测试")
@@ -30,6 +31,7 @@
     * [工程化工具链](Module/工程化工具链.md "工程化工具链")
     * [vite脚手架学习](Module/vite脚手架学习.md "vite脚手架学习")
     * [不同框架特性](Module/不同框架特性.md "不同框架特性")
+    * [开发规范](Module/开发规范.md "开发规范")
 
 * Vue
     * [vue2学习](Vue/vue2学习.md "vue2学习")
