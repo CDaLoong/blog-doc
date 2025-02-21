@@ -1,8 +1,59 @@
 # Linux
 
-## 一些操作记录
+!>可以通过 tab 键补齐命令和目录文件名
 
-### 常用操作
+## 常用初始配置
+
+### SELINUX管理
+
+```shell
+# 1. 查看selinux状态
+getenforce
+
+# 2. 关闭当前selinux
+setenforce 0
+
+# 3. 修改配置文件 /etc/sysconfig/selinux，确保如下参数值
+SELINUX=permissive
+```
+
+### 防火墙管理
+
+```shell
+# 1，查看防火墙状态
+systemctl status firewalld.service
+
+# 2，开启防火墙
+systemctl start firewalld.service
+
+# 3，关闭防火墙
+systemctl stop firewalld.service
+
+# 4，禁用防火墙（关闭随机启动）
+systemctl disable firewalld.service
+```
+
+## 常用操作
+
+### 系统开关
+
+```shell
+# 1. 关机命令  
+# 0、1、2、3、4、5、6 linux里的级别划分，3级别为终端登录使用(多用户文本模式,文本界面 + 网络)，5级别是图形界面模式(与级别3相同，但额外启动图形界面)，4级别是保留级别(通常未定义，可由管理员自定义用途)，1级别是单用户模式(仅启动基本服务，无需密码即可获得 root 权限用于系统修复。)，6级别是重启模式(停止所有服务并重新启动系统)，0级别为关机(停止所有服务并关闭系统)，2级别为多用户模式（无网络）,启动基本服务，但通常不启用网络
+# shutdown   now 立即马上执行
+poweroff # 关闭系统并关闭电源，是 shutdown -h now 的简写，意味着立即关闭系统
+init 0 # init 命令用于改变系统的运行级别，运行级别 0 表示关闭系统（即关机），运行 init 0 会让系统进入关机状态
+halt # halt 命令会停止系统的所有进程，类似于关机操作，但不一定关闭电源。它是强制停止系统的一种方法，通常需要额外的步骤来关闭电源
+shutdown -h now # shutdown 命令用于关闭系统。-h 选项意味着关闭系统（halt），now 表示立即执行关机操作
+shutdown -h +20 # 这个命令会在 20 分钟后关机。+20 表示延迟 20 分钟后执行关机
+
+# 2. 重启命令
+reboot # 重启系统， shutdown -r now 的简写
+init 6 # 运行级别 6 表示重启系统，init 6 会让系统重启
+shutdown -r now # -r 表示重启，now 表示立即执行重启
+shutdown -r +20 # 这个命令会在 20 分钟后重启系统，+20 表示延迟 20 分钟后执行重启
+```
+
 ```shell
 # 查看ip
 hostname -1
@@ -11,17 +62,17 @@ ip addr
 ip address
 ip addr show
 ip address show
-
-
 ```
 
 ### 更新系统
+
 ```shell
 sudo dnf clean all
 sudo dnf update
 ```
 
 ### 更新yum源
+
 ```shell
 # 1、将源文件备份
 cd /etc/yum.repos.d/ && mkdir backup && mv *repo backup/
@@ -38,6 +89,7 @@ yum clean all && yum makecache
 ```
 
 ### 安装vim
+
 ```shell
 sudo dnf install vim
 ```
@@ -50,6 +102,7 @@ export EDITOR="vim"
 - [vi操作](https://www.runoob.com/linux/linux-vim.html)
 
 ### 修改本地系统默认语言环境
+
 - 查看本机语言包
 ```shell
 locale -a
@@ -69,22 +122,9 @@ dnf install glibc-langpack-en
 # 下载全部语言包
 dnf install glibc-all-langpacks -y
 ```
-### 开启/关闭防火墙
-```shell
-# 1，查看防火墙状态
-systemctl status firewalld.service
 
-
-# 2，开启防火墙
-systemctl start firewalld.service
-
-# 3，关闭防火墙
-systemctl stop firewalld.service
-
-# 4，禁用防火墙
-systemctl disable firewalld.service
-```
 ### [添加和删除用户](https://www.myfreax.com/how-to-add-and-delete-users-on-centos-8/)
+
 ```shell
 # 添加用户
 sudo useradd daloong
@@ -137,6 +177,7 @@ gpasswd -d users daloong
 ```
 
 ### 新建、重命名、删除文件夹、文件
+
 - 新建文件夹
   - 格式：mkdir [选项] DirName
   - 命令中的［选项］一般有以下两种：
