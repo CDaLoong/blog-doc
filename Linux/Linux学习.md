@@ -179,10 +179,25 @@ shutdown -r +20 # 这个命令会在 20 分钟后重启系统，+20 表示延迟
   - `tar -jcvpf etc.tar.bz2 --exclude=sysconfig(目录) --exclude=hosts(文件) /etc`: 排除指定文件和目录后，进行打包压缩
   - `tar -jxvpf etc.tar.bz2 etc/passwd etc/shadow`: 恢复指定文件
   - `tar tvf etc.tar.bz2`: 查看tar包中包含的文件和目录
-- `gzip -9 file`, `gzip file`: 使用gzip命令压缩文件，-9表示最高压缩率
+- `gzip -9 file`, `gzip file`: 使用gzip命令压缩文件，-9表示最高压缩率，会把原文件打包后移除，生成一个.gz文件
 - `gzip -r filename.gz file1 file2 etc`: 递归压缩目录中的文件
 - `unrar x file.rar`: 解压缩RAR格式的文件
 - grep 命令
+  - grep（Global Regular Expression Print）命令用于在文件或标准输入中搜索符合指定模式的行，并将匹配的内容输出到终端
+  - egrep 是 grep 的扩展版本，支持 扩展正则表达式（ERE, Extended Regular Expressions），相当于 grep -E
+    - **注意：在 GNU grep 3.8 及之后的版本，egrep 已被弃用，官方建议改用 grep -E**
+  - `grep [选项] "搜索模式" 文件名`
+  - `-i`	忽略大小写
+  - `-v`	反向匹配（显示不包含搜索模式的行）
+  - `-r`	递归搜索目录中的文件
+  - `-n`	显示匹配行的行号
+  - `-l`	只输出匹配的文件名
+  - `-c`	统计匹配的行数
+  - `-o`	只显示匹配的部分
+  - `-E`	使用扩展正则表达式（相当于 egrep）
+  - `-A N`	显示匹配行后面 N 行
+  - `-B N`	显示匹配行前面 N 行
+  - `-C N`	显示匹配行前后各 N 行
   - `cat /etc/hosts | grep 192.168.15.1`: 查找/etc/hosts文件中包含192.168.15.1的行
   - `cat /etc/hosts | grep “192.168.15.1“`: 同上，查找特定IP
   - `cat /etc/hosts | grep -v 192.168.15.1`: 查找不包含192.168.15.1的行
@@ -192,31 +207,44 @@ shutdown -r +20 # 这个命令会在 20 分钟后重启系统，+20 表示延迟
   - `grep -o password=.... anaconda-ks.cfg`: 抓取特定字符串
   - `grep -A 2 -B 2 rootpw anaconda-ks.cfg`: 抓取关键词的上下文行
 - cut命令
-  - `cat /etc/passwd | cut -d “:” -f 1`: 以冒号为分隔符，提取第一个字段（用户名）
-  - `cat /etc/passwd | cut -d “:" -f 1,3`: 提取第一个和第三个字段（用户名和用户ID）
+  - cut 命令用于从文本或文件中提取指定的列或字符。它通常用于按字符、字节或分隔符提取特定字段
+  - `-b`	按 字节 提取
+  - `-c`	按 字符 提取
+  - `-d`	指定 分隔符（默认是 TAB）
+  - `-f`	指定 字段（需配合 -d 使用）
+  - `--complement`	取反（输出未选择的部分）
+  - `--output-delimiter=STRING`	设置输出分隔符
+  - `cat /etc/passwd | cut -d : -f 1`: 以冒号为分隔符，提取第一个字段（用户名）
+  - `cat /etc/passwd | cut -d : -f 1,3`: 提取第一个和第三个字段（用户名和用户ID）
+  - `cat /etc/passwd | cut -c -10`: 提取从头到第10个字符
   - `cat /etc/passwd | cut -c 10-`: 提取第10个字符到行末
   - `df -h | cut -c 1-10`: 提取第1个到第10个字符
 - sort命令
+  - sort 命令用于对文本文件的内容进行排序，默认按 ASCII 字符顺序 对每行进行排序。它支持按 数字、字母、时间、随机顺序 等方式排序，并可以对特定字段进行排序
   - `-f`: 忽略大小写进行排序
   - `-b`: 忽略最前面的空白部分
   - `-M`: 以月份的名字进行排序，例如 JAN, DEC 等
-  - `-n`: 按数字排序，默认以第一个数据进行排序
-  - `-r`: 反向排序（从大到小）
-  - `-u`: 只显示唯一行，去除重复行
-  - `-t`: 指定分隔符，默认是tab键
-  - `-k`: 指定按哪个字段进行排序
-  - `cat /etc/passwd | sort -t ":" -k 3 -n`: 按用户ID排序
-  - `cat /etc/passwd | sort -t ":" -k 3 -n | cut -d ":" -f 3`: 提取排序后的用户ID
+  - `-n`: 按数字排序（默认按字母排序），默认以第一个数据进行排序
+  - `-r`: 反向排序（从大到小）,逆序（降序）排序
+  - `-u`: 只显示唯一行，去除重复行（等价于 uniq）
+  - `-t`: 指定分隔符，默认是tab键（默认空格）
+  - `-k`: 指定按哪个字段（列）进行排序
+  - `-o` 文件	将结果写入指定文件
+  - `-m`	合并已排序的文件
+  - `-c`	检查文件是否已排序
+  - `-V`	按 版本号 排序（如 v1.2.10 < v1.2.9）
+  - `-h`	按 人类可读 大小排序（如 10K < 1M < 1G）
+  - `cat /etc/passwd | sort -t : -k 3 -n`: 按用户ID排序
+  - `cat /etc/passwd | sort -t : -k 3 -n | cut -d : -f 3`: 提取排序后的用户ID
 - uniq命令
+  - uniq 命令用于去除相邻的重复行，通常与 sort 结合使用，因为 uniq 只对相邻的行进行处理
   - `cat /tmp/t2`: 查看文件内容
-  - `aa`
-  - `bb`
-  - `bb`
-  - `cc`
-  - `cc`
-  - `bb`
-  - `bb`
-  - `dd`
+  - `-c`	统计每行重复的次数
+  - `-d`	只显示重复的行（隐藏唯一的行）
+  - `-u`	只显示唯一的行（隐藏重复的行）
+  - `-i`	忽略大小写
+  - `-f N`	忽略前 N 个字段进行比较
+  - `-s N`	忽略前 N 个字符进行比较
   - `cat t2 | uniq -c`: 统计并显示唯一行及其出现次数
   - `cat t2 | sort | uniq -c`: 先排序再统计唯一行
 - wc命令
