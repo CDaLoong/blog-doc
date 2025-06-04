@@ -58,6 +58,9 @@
     * [mysql学习](MySQL/mysql学习.md "mysql学习")
     * [Rust学习](Rust/Rust学习.md "Rust学习")
 
+* AI
+    * [AI提词相关](AI/AI提词相关.md "AI提词相关")
+
 * 其他
     * [支付宝小程序](MiniProgram/支付宝小程序.md "支付宝小程序")
     * [不常用工具命令记录](Computer/不常用工具命令记录.md "不常用工具命令记录")
