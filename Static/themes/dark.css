@@ -1,0 +1,272 @@
+/* 暗黑主题样式 */
+:root {
+  --theme-color: #42b983;
+  --theme-bg: #1a1a1a;
+  --text-color: #e0e0e0;
+  --sidebar-bg: #2d2d2d;
+  --content-bg: #1a1a1a;
+  --border-color: #404040;
+  --code-bg: #2d2d2d;
+  --blockquote-bg: #2d2d2d;
+}
+
+/* 暗黑模式下的基础样式 */
+body[data-theme="dark"] {
+  background-color: var(--theme-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* 侧边栏暗黑样式 */
+body[data-theme="dark"] .sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-right: 1px solid var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .sidebar ul li a {
+  color: #b0b0b0 !important;
+}
+
+body[data-theme="dark"] .sidebar ul li a:hover {
+  color: var(--theme-color) !important;
+}
+
+body[data-theme="dark"] .sidebar ul li.active > a {
+  color: var(--theme-color) !important;
+}
+
+/* 内容区域暗黑样式 */
+body[data-theme="dark"] .content {
+  background-color: var(--content-bg) !important;
+}
+
+body[data-theme="dark"] .markdown-section {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .markdown-section h1,
+body[data-theme="dark"] .markdown-section h2,
+body[data-theme="dark"] .markdown-section h3,
+body[data-theme="dark"] .markdown-section h4,
+body[data-theme="dark"] .markdown-section h5,
+body[data-theme="dark"] .markdown-section h6 {
+  color: #ffffff !important;
+}
+
+body[data-theme="dark"] .markdown-section a {
+  color: var(--theme-color) !important;
+}
+
+/* 代码块暗黑样式 */
+body[data-theme="dark"] .markdown-section code,
+body[data-theme="dark"] .markdown-section pre {
+  background-color: var(--code-bg) !important;
+  color: #ffffff !important;
+}
+
+body[data-theme="dark"] .markdown-section pre > code {
+  color: #ffffff !important;
+}
+
+/* 引用块暗黑样式 */
+body[data-theme="dark"] .markdown-section blockquote {
+  background-color: var(--blockquote-bg) !important;
+  border-left: 4px solid var(--theme-color) !important;
+  color: #b0b0b0 !important;
+}
+
+/* 表格暗黑样式 */
+body[data-theme="dark"] .markdown-section table {
+  background-color: var(--content-bg) !important;
+}
+
+body[data-theme="dark"] .markdown-section td,
+body[data-theme="dark"] .markdown-section th {
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .markdown-section tr:nth-child(2n) {
+  background-color: #333333 !important;
+}
+
+/* 搜索框暗黑样式 */
+body[data-theme="dark"] .search input {
+  background-color: var(--sidebar-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* 应用导航暗黑样式 */
+body[data-theme="dark"] .app-nav {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .app-nav a {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .app-nav a:hover {
+  color: var(--theme-color) !important;
+}
+
+/* 侧边栏切换按钮暗黑样式 */
+body[data-theme="dark"] .sidebar-toggle {
+  background-color: var(--sidebar-bg) !important;
+}
+
+/* GitHub Corner 暗黑样式 */
+body[data-theme="dark"] .github-corner svg {
+  fill: var(--theme-color) !important;
+  color: var(--theme-bg) !important;
+}
+
+/* 分页导航暗黑样式 */
+body[data-theme="dark"] .docsify-pagination-container {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .pagination-item-label {
+  color: var(--text-color) !important;
+}
+
+/* Gitalk 评论系统暗黑样式 */
+body[data-theme="dark"] .gt-container {
+  background-color: var(--content-bg) !important;
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .gt-header-textarea {
+  background-color: var(--sidebar-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .gt-comment-content {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* 主题切换按钮样式 */
+#theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  z-index: 999;
+  background: var(--theme-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+  #theme-toggle {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+  }
+  
+  #theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* 补充暗黑主题样式 */
+body[data-theme="dark"] .markdown-section p.tip {
+  background-color: rgba(66, 185, 131, 0.15) !important;
+  border-left: 4px solid var(--theme-color) !important;
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .markdown-section p.warn {
+  background: rgba(66, 185, 131, 0.1) !important;
+  color: var(--text-color) !important;
+}
+
+/* 滚动条暗黑样式 */
+body[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+body[data-theme="dark"] .sidebar:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+body[data-theme="dark"] .sidebar:hover::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 搜索结果暗黑样式 */
+body[data-theme="dark"] .search .results-panel {
+  background-color: var(--sidebar-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+body[data-theme="dark"] .search .results-panel .matching-post {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+body[data-theme="dark"] .search .results-panel .matching-post:hover {
+  background-color: var(--code-bg) !important;
+}
+
+body[data-theme="dark"] .search .results-panel .matching-post a {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .search .results-panel .matching-post a:hover {
+  color: var(--theme-color) !important;
+}
+
+/* 分页控件暗黑样式 */
+body[data-theme="dark"] .pagination-item {
+  background-color: var(--sidebar-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+body[data-theme="dark"] .pagination-item a {
+  color: var(--text-color) !important;
+}
+
+body[data-theme="dark"] .pagination-item:hover {
+  background-color: var(--code-bg) !important;
+}
+
+/* 复制代码按钮暗黑样式 */
+body[data-theme="dark"] .docsify-copy-code-button {
+  background: var(--theme-color) !important;
+  color: #ffffff !important;
+}
+
+/* 加载动画暗黑样式 */
+body[data-theme="dark"] .app-nav li ul {
+  background-color: var(--sidebar-bg) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+/* HR 分割线暗黑样式 */
+body[data-theme="dark"] .markdown-section hr {
+  border-bottom: 1px solid var(--border-color) !important;
+} 

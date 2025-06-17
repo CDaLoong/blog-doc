@@ -13,9 +13,21 @@
     <link rel="icon" href="https://ssl-pubpic.51yund.com/1433690764.png" />
     <link rel="stylesheet" href="./Static/themes/vue.min.css" />
     <link rel="stylesheet" href="./Static/themes/gitalk.css" />
+    <link rel="stylesheet" href="./Static/themes/dark.css" />
   </head>
 
   <body>
+    <!-- 主题切换按钮 -->
+    <button id="theme-toggle" title="切换主题">
+      <svg id="sun-icon" viewBox="0 0 24 24">
+        <path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/>
+        <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m15.36-5.64l1.41-1.41M3.64 19.36l1.41-1.41m0-12.73L3.64 4.22m15.36 15.36l-1.41-1.41"/>
+      </svg>
+      <svg id="moon-icon" viewBox="0 0 24 24" style="display: none;">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+      </svg>
+    </button>
+    
     <div id="app">Please wait...</div>
     <script>
       window.$docsify = {
@@ -97,6 +109,54 @@
           }).render("git-talks-container");
         });
       }, $docsify.plugins);
+    </script>
+
+    <!-- 主题切换功能 -->
+    <script>
+      (function() {
+        // 获取本地存储的主题设置
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        
+        // 应用主题
+        function applyTheme(theme) {
+          document.body.setAttribute('data-theme', theme);
+          localStorage.setItem('theme', theme);
+          
+          if (theme === 'dark') {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+          } else {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+          }
+        }
+        
+        // 切换主题
+        function toggleTheme() {
+          const current = document.body.getAttribute('data-theme') || 'light';
+          const newTheme = current === 'light' ? 'dark' : 'light';
+          applyTheme(newTheme);
+        }
+        
+        // 初始化主题
+        applyTheme(currentTheme);
+        
+        // 绑定点击事件
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // 监听系统主题变化（可选）
+        if (window.matchMedia) {
+          const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          mediaQuery.addListener(function(e) {
+            if (!localStorage.getItem('theme')) {
+              applyTheme(e.matches ? 'dark' : 'light');
+            }
+          });
+        }
+      })();
     </script>
   </body>
 </html>
