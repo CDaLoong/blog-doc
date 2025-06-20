@@ -116,8 +116,16 @@
     <!-- 主题切换功能 -->
     <script>
       (function() {
-        // 获取本地存储的主题设置
-        const currentTheme = localStorage.getItem('theme') || 'light';
+        // 获取系统主题偏好
+        function getSystemTheme() {
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+          }
+          return 'light';
+        }
+        
+        // 获取主题设置：优先使用保存的设置，否则使用系统偏好
+        const currentTheme = localStorage.getItem('theme') || getSystemTheme();
         const themeToggle = document.getElementById('theme-toggle');
         const sunIcon = document.getElementById('sun-icon');
         const moonIcon = document.getElementById('moon-icon');
@@ -149,14 +157,25 @@
         // 绑定点击事件
         themeToggle.addEventListener('click', toggleTheme);
         
-        // 监听系统主题变化（可选）
+        // 监听系统主题变化
         if (window.matchMedia) {
           const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-          mediaQuery.addListener(function(e) {
+          
+          // 使用新的 addEventListener 方法（更现代的API）
+          const handleSystemThemeChange = function(e) {
+            // 只在用户未手动设置主题时才自动跟随系统
             if (!localStorage.getItem('theme')) {
               applyTheme(e.matches ? 'dark' : 'light');
             }
-          });
+          };
+          
+          // 兼容新旧API
+          if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener('change', handleSystemThemeChange);
+          } else {
+            // 兼容旧版浏览器
+            mediaQuery.addListener(handleSystemThemeChange);
+          }
         }
       })();
     </script>
